@@ -1,528 +1,396 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="JM Barberclub — Cortes de alta precisão, estilo, barba e agendamento online."
-    />
-    <meta name="theme-color" content="#0a0a0a" />
 
-    <title>JM Barberclub | Excelência em Estilo</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="JM Barberclub — Cortes de alta precisão, estilo, barba e agendamento online." />
+  <meta name="theme-color" content="#0a0a0a" />
 
-    <link rel="icon" type="image/png" href="img_logos/logo_principal" />
-    <script defer src="/_vercel/insights/script.js"></script>
+  <title>JM Barberclub | Excelência em Estilo</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syncopate:wght@700&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%23030305%22/><path d=%22M6 6l12 12M18 6L6 18%22 stroke=%22%23ff2942%22 stroke-width=%222.5%22 stroke-linecap=%22round%22/></svg>" />
+  <script defer src="/_vercel/insights/script.js"></script>
 
-    <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
 
-  <body>
-    <!-- Efeitos de Fundo Dinâmicos -->
-    <div class="ambient-glow glow-1" aria-hidden="true"></div>
-    <div class="ambient-glow glow-2" aria-hidden="true"></div>
+  <link rel="stylesheet" href="style.css" />
 
-    <main class="page-container">
-      <!-- Seção Principal (Hero & Galeria) -->
-      <section class="hero-section reveal-element" aria-labelledby="title">
-        <div>
+<body>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="noise-layer" aria-hidden="true"></div>
+  <!-- Efeitos de Fundo Dinâmicos -->
+  <div class="ambient-glow glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow glow-2" aria-hidden="true"></div>
+
+  <main class="page-container">
+    <!-- Seção Principal (Hero & Galeria) -->
+    <section class="hero-section panel-glass hud-corners reveal-element" aria-labelledby="title">
+      <div>
+        <div class="status-strip">
           <div class="brand-badge">
             <span class="pulse-dot"></span>
             <span>ATENDIMENTO EXCLUSIVO</span>
           </div>
-
-          <h1 id="title">JM<br /><em>BARBERCLUB</em></h1>
-
-          <p class="intro-text">
-            Cortes de precisão, barbearia clássica e moderna em um ambiente
-            sofisticado projetado para o seu visual.
-          </p>
-        </div>
-
-        <div class="gallery-grid">
-          <div class="gallery-card card-large">
-            <img
-              src="img/foto1.png"
-              alt="Corte & barba de elite"
-              loading="lazy"
-            />
-            <div class="card-overlay"><span>Corte & Barba de Elite</span></div>
-          </div>
-          <div class="gallery-card">
-            <img src="img/foto2.png" alt="Nosso espaço" loading="lazy" />
-            <div class="card-overlay"><span>Nosso Espaço</span></div>
-          </div>
-          <div class="gallery-card">
-            <img src="img/foto3.png" alt="Resultado impecável" loading="lazy" />
-            <div class="card-overlay"><span>Resultado Impecável</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Seção de Cards de Serviços em Loop Infinito -->
-      <section
-        class="marquee-section reveal-element"
-        aria-label="Nossos Serviços"
-      >
-        <div class="marquee-track">
-          <!-- Bloco 1 -->
-          <div class="marquee-group">
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_degrade.png"
-                  alt="Degradê"
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CORTE</span>
-                <span class="card-title">DEGRADÊ</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_tesoura.png"
-                  alt="Corte Só Tesoura"
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CORTE</span>
-                <span class="card-title">CORTE SÓ TESOURA</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_frestyle.png"
-                  alt="Freestyle"
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CORTE</span>
-                <span class="card-title">FRESTYLE</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/barboterapia.png"
-                  alt="Barboterapia"
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">TRATAMENTO</span>
-                <span class="card-title">BARBOTERAPIA</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_barba.png"
-                  alt="Corte + Barba"
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">COMBO</span>
-                <span class="card-title">CORTE + BARBA</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_moicano.png"
-                  alt="Degradê Moicano"
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">DESTAQUE</span>
-                <span class="card-title">DEGRADÊ MOICANO</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_social.png"
-                  alt="Corte Social"
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CLÁSSICO</span>
-                <span class="card-title">CORTE SOCIAL</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/limpeza_pele.png"
-                  alt="Limpeza de Pele"
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CUIDADOS</span>
-                <span class="card-title">LIMPEZA DE PELE</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bloco 2 duplicado para o loop infinito perfeito -->
-          <div class="marquee-group" aria-hidden="true">
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_degrade.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CORTE</span>
-                <span class="card-title">DEGRADÊ</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_tesoura.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CORTE</span>
-                <span class="card-title">CORTE SÓ TESOURA</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_frestyle.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CORTE</span>
-                <span class="card-title">FRESTYLE</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/barboterapia.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">TRATAMENTO</span>
-                <span class="card-title">BARBOTERAPIA</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_barba.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">COMBO</span>
-                <span class="card-title">CORTE + BARBA</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_moicano.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">DESTAQUE</span>
-                <span class="card-title">DEGRADÊ MOICANO</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_social.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">ESTILO</span>
-                <span class="card-title">SOCIAL</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/corte_social.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CLÁSSICO</span>
-                <span class="card-title">CORTE SOCIAL</span>
-              </div>
-            </div>
-
-            <div class="service-card-item">
-              <div class="card-img-container">
-                <img
-                  src="img_servicos/limpeza_pele.png"
-                  alt=""
-                  class="card-img"
-                />
-              </div>
-              <div class="card-info">
-                <span class="card-category">CUIDADOS</span>
-                <span class="card-title">LIMPEZA DE PELE</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Seção de Agendamento e Horários -->
-      <section
-        class="dashboard-section reveal-element"
-        aria-labelledby="schedule-title"
-      >
-        <div class="schedule-container">
-          <div class="section-header">
-            <span class="tag">AGENDE SEU HORÁRIO</span>
-            <h2 id="schedule-title">Horários de<br /><em>Funcionamento</em></h2>
-          </div>
-
-          <div class="matrix-item highlight">
-            <span class="day">Segunda-feira a Sábado</span>
-            <span class="time">09:00 — 19:00</span>
-          </div>
-          <div class="matrix-item">
-            <span class="day">Domingo e Feriados</span>
-            <span class="time">09:00 — 12:30</span>
+          <div class="local-clock mono">
+            <span id="localTime">--:--</span>
+            <strong>CAMPINA GRANDE, PB</strong>
           </div>
         </div>
 
-        <a
-          class="cta-booking-btn"
-          href="https://chat.inbarberapp.com/jmbarberclub"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <div class="cta-content">
-            <strong>AGENDAR AGORA</strong>
-            <span>Garantir meu horário online</span>
-          </div>
-          <div class="cta-arrow" aria-hidden="true">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <line x1="7" y1="17" x2="17" y2="7"></line>
-              <polyline points="7 7 17 7 17 17"></polyline>
-            </svg>
-          </div>
-        </a>
+        <h1 id="title">JM<br /><em>BARBERCLUB</em></h1>
 
-        <!-- Seção de Feedback em Destaque -->
-        <section class="feedback-highlight-section">
-          <div class="feedback-card-box">
-            <div class="feedback-header-content">
-              <span class="tag">SUA OPINIÃO IMPORTA</span>
-              <h2>Como foi sua experiência na<br /><em>JM Barberclub?</em></h2>
-              <p class="feedback-subtitle">
-                Deixe sua sugestão, elogio ou crítica de melhoria. Escreva
-                livremente, com ou sem identificação!
-              </p>
-            </div>
-
-            <button
-              type="button"
-              class="cta-feedback-btn"
-              id="open-feedback-modal"
-            >
-              <div class="cta-content">
-                <strong>DEIXE SEU FEEDBACK</strong>
-                <span>Clique aqui para escrever sua opinião</span>
-              </div>
-              <div class="cta-arrow" aria-hidden="true">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-                  ></path>
-                </svg>
-              </div>
-            </button>
-          </div>
-        </section>
-
-        <address class="contacts-panel">
-          <div class="panel-header">
-            <span>CANAIS DE CONTATO</span>
-            <span class="status-online"
-              ><span class="mini-pulse" aria-hidden="true"></span> AGENDA
-              ABERTA</span
-            >
-          </div>
-
-          <div class="contacts-grid">
-            <a
-              class="contact-node"
-              href="https://www.google.com/maps/place/JM+Barberclub/@-7.2124372,-35.9006579,17z/data=!3m1!4b1!4m6!3m5!1s0x7ac1f001746841f:0xee46df8375c7ba18!8m2!3d-7.2124372!4d-35.9006579!16s%2Fg%2F11nv04mbwt!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDgyMy4wIKXMDSoASAFQAw%3D%3D"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img src="img_logos/localizacao.png" alt="" />
-              <div>
-                <small>LOCALIZAÇÃO</small>
-                <strong>Rua Diogo da Costa 252</strong>
-              </div>
-              <span class="node-arrow" aria-hidden="true">↗</span>
-            </a>
-
-            <a
-              class="contact-node"
-              href="https://wa.me/5583996646306"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img src="img_logos/whatsapp.png" alt="" />
-              <div>
-                <small>WHATSAPP</small>
-                <strong>(83) 9 9664-6306</strong>
-              </div>
-              <span class="node-arrow" aria-hidden="true">↗</span>
-            </a>
-
-            <a
-              class="contact-node"
-              href="https://www.instagram.com/jm_barberclub_cg/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img src="img_logos/instagram.png" alt="" />
-              <div>
-                <small>INSTAGRAM</small>
-                <strong>@jm_barberclub_cg</strong>
-              </div>
-              <span class="node-arrow" aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </address>
-      </section>
-    </main>
-
-    <!-- Modal / Janela Flutuante de Feedback (Apenas Estrutura HTML) -->
-    <div class="feedback-modal-overlay" id="feedbackModal">
-      <div class="feedback-modal-card">
-        <button
-          type="button"
-          class="feedback-close-btn"
-          id="close-feedback-modal"
-        >
-          &times;
-        </button>
-        <h3>Deixe sua Opinião</h3>
-        <p>Sua mensagem vai direto para a nossa equipe avaliar melhorias.</p>
-
-        <form id="feedbackForm">
-          <div class="feedback-form-group">
-            <label for="visitorName"
-              >Seu Nome (Opcional - deixe em branco para anônimo)</label
-            >
-            <input
-              type="text"
-              id="visitorName"
-              placeholder="Ex: Carlos Mendes"
-            />
-          </div>
-
-          <div class="feedback-form-group">
-            <label for="feedbackMessage">Mensagem / Sugestão *</label>
-            <textarea
-              id="feedbackMessage"
-              required
-              placeholder="O que você achou? Tem alguma dica de melhoria?"
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            class="feedback-submit-btn"
-            id="submitFeedbackBtn"
-          >
-            Enviar Feedback
-          </button>
-        </form>
+        <p class="intro-text">
+          Cortes de precisão, barbearia clássica e moderna em um ambiente
+          sofisticado projetado para o seu visual.
+        </p>
       </div>
-    </div>
 
-    <!-- Barra de Ação Flutuante para Mobile -->
-    <div class="mobile-sticky-bar">
-      <a
-        class="mobile-sticky-btn"
-        href="https://chat.inbarberapp.com/jmbarberclub"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <span>⚡ GARANTIR MEU HORÁRIO</span>
+      <div class="gallery-grid">
+        <div class="gallery-card card-large hud-corners">
+          <img src="img/foto1.png" alt="Corte & barba de elite" loading="lazy" />
+          <div class="card-overlay"><span>Corte & Barba de Elite</span></div>
+        </div>
+        <div class="gallery-card">
+          <img src="img/foto2.png" alt="Nosso espaço" loading="lazy" />
+          <div class="card-overlay"><span>Nosso Espaço</span></div>
+        </div>
+        <div class="gallery-card">
+          <img src="img/foto3.png" alt="Resultado impecável" loading="lazy" />
+          <div class="card-overlay"><span>Resultado Impecável</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Cards de Serviços em Loop Infinito -->
+    <section class="marquee-section panel-glass reveal-element" aria-label="Nossos Serviços">
+      <div class="marquee-heading">
+        <span class="tag">CATÁLOGO DE SERVIÇOS</span>
+        <span class="hint mono">PASSE O MOUSE PARA PAUSAR</span>
+      </div>
+      <div class="marquee-track">
+        <!-- Bloco 1 -->
+        <div class="marquee-group">
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_degrade.png" alt="Degradê" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CORTE</span>
+              <span class="card-title">DEGRADÊ</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_tesoura.png" alt="Corte Só Tesoura" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CORTE</span>
+              <span class="card-title">CORTE SÓ TESOURA</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_frestyle.png" alt="Freestyle" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CORTE</span>
+              <span class="card-title">FRESTYLE</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/barboterapia.png" alt="Barboterapia" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">TRATAMENTO</span>
+              <span class="card-title">BARBOTERAPIA</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_barba.png" alt="Corte + Barba" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">COMBO</span>
+              <span class="card-title">CORTE + BARBA</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_moicano.png" alt="Degradê Moicano" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">DESTAQUE</span>
+              <span class="card-title">DEGRADÊ MOICANO</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_social.png" alt="Corte Social" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CLÁSSICO</span>
+              <span class="card-title">CORTE SOCIAL</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/limpeza_pele.png" alt="Limpeza de Pele" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CUIDADOS</span>
+              <span class="card-title">LIMPEZA DE PELE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloco 2 duplicado para o loop infinito perfeito -->
+        <div class="marquee-group" aria-hidden="true">
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_degrade.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CORTE</span>
+              <span class="card-title">DEGRADÊ</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_tesoura.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CORTE</span>
+              <span class="card-title">CORTE SÓ TESOURA</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_frestyle.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CORTE</span>
+              <span class="card-title">FRESTYLE</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/barboterapia.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">TRATAMENTO</span>
+              <span class="card-title">BARBOTERAPIA</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_barba.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">COMBO</span>
+              <span class="card-title">CORTE + BARBA</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_moicano.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">DESTAQUE</span>
+              <span class="card-title">DEGRADÊ MOICANO</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_social.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">ESTILO</span>
+              <span class="card-title">SOCIAL</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/corte_social.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CLÁSSICO</span>
+              <span class="card-title">CORTE SOCIAL</span>
+            </div>
+          </div>
+
+          <div class="service-card-item">
+            <div class="card-img-container">
+              <img src="img_servicos/limpeza_pele.png" alt="" class="card-img" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">CUIDADOS</span>
+              <span class="card-title">LIMPEZA DE PELE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Agendamento e Horários -->
+    <section class="dashboard-section panel-glass hud-corners reveal-element" aria-labelledby="schedule-title">
+      <div class="schedule-container">
+        <div class="section-header">
+          <span class="tag">AGENDE SEU HORÁRIO</span>
+          <h2 id="schedule-title">Horários de<br /><em>Funcionamento</em></h2>
+        </div>
+
+        <div class="matrix-item highlight">
+          <span class="day">Segunda-feira a Sábado</span>
+          <span class="time">09:00 — 19:00</span>
+        </div>
+        <div class="matrix-item">
+          <span class="day">Domingo e Feriados</span>
+          <span class="time">09:00 — 12:30</span>
+        </div>
+      </div>
+
+      <a class="cta-booking-btn" href="https://chat.inbarberapp.com/jmbarberclub" target="_blank" rel="noreferrer">
+        <div class="cta-content">
+          <strong>AGENDAR AGORA</strong>
+          <span>Garantir meu horário online</span>
+        </div>
+        <div class="cta-arrow" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </div>
       </a>
+
+      <!-- Seção de Feedback em Destaque -->
+      <section class="feedback-highlight-section">
+        <div class="feedback-card-box">
+          <div class="feedback-header-content">
+            <span class="tag">SUA OPINIÃO IMPORTA</span>
+            <h2>Como foi sua experiência na<br /><em>JM Barberclub?</em></h2>
+            <p class="feedback-subtitle">
+              Deixe sua sugestão, elogio ou crítica de melhoria. Escreva
+              livremente, com ou sem identificação!
+            </p>
+          </div>
+
+          <button type="button" class="cta-feedback-btn" id="open-feedback-modal">
+            <div class="cta-content">
+              <strong>DEIXE SEU FEEDBACK</strong>
+              <span>Clique aqui para escrever sua opinião</span>
+            </div>
+            <div class="cta-arrow" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <address class="contacts-panel">
+        <div class="panel-header">
+          <span>CANAIS DE CONTATO</span>
+          <span class="status-online"><span class="mini-pulse" aria-hidden="true"></span> AGENDA
+            ABERTA</span>
+        </div>
+
+        <div class="contacts-grid">
+          <a class="contact-node"
+            href="https://www.google.com/maps/place/JM+Barberclub/@-7.2124372,-35.9006579,17z/data=!3m1!4b1!4m6!3m5!1s0x7ac1f001746841f:0xee46df8375c7ba18!8m2!3d-7.2124372!4d-35.9006579!16s%2Fg%2F11nv04mbwt!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDgyMy4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank" rel="noreferrer">
+            <img src="img_logos/localizacao.png" alt="" />
+            <div>
+              <small>LOCALIZAÇÃO</small>
+              <strong>Rua Diogo da Costa 252</strong>
+            </div>
+            <span class="node-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="contact-node" href="https://wa.me/5583996646306" target="_blank" rel="noreferrer">
+            <img src="img_logos/whatsapp.png" alt="" />
+            <div>
+              <small>WHATSAPP</small>
+              <strong>(83) 9 9664-6306</strong>
+            </div>
+            <span class="node-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="contact-node" href="https://www.instagram.com/jm_barberclub_cg/" target="_blank" rel="noreferrer">
+            <img src="img_logos/instagram.png" alt="" />
+            <div>
+              <small>INSTAGRAM</small>
+              <strong>@jm_barberclub_cg</strong>
+            </div>
+            <span class="node-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </address>
+    </section>
+  </main>
+
+  <!-- Modal / Janela Flutuante de Feedback (Apenas Estrutura HTML) -->
+  <div class="feedback-modal-overlay" id="feedbackModal">
+    <div class="feedback-modal-card">
+      <button type="button" class="feedback-close-btn" id="close-feedback-modal">
+        &times;
+      </button>
+      <h3>Deixe sua Opinião</h3>
+      <p>Sua mensagem vai direto para a nossa equipe avaliar melhorias.</p>
+
+      <form id="feedbackForm">
+        <div class="feedback-form-group">
+          <label for="visitorName">Seu Nome (Opcional - deixe em branco para anônimo)</label>
+          <input type="text" id="visitorName" placeholder="Ex: Carlos Mendes" />
+        </div>
+
+        <div class="feedback-form-group">
+          <label for="feedbackMessage">Mensagem / Sugestão *</label>
+          <textarea id="feedbackMessage" required
+            placeholder="O que você achou? Tem alguma dica de melhoria?"></textarea>
+        </div>
+
+        <button type="submit" class="feedback-submit-btn" id="submitFeedbackBtn">
+          Enviar Feedback
+        </button>
+      </form>
     </div>
+  </div>
 
-    <!-- 1. Biblioteca oficial do Supabase via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Barra de Ação Flutuante para Mobile -->
+  <div class="mobile-sticky-bar">
+    <a class="mobile-sticky-btn" href="https://chat.inbarberapp.com/jmbarberclub" target="_blank" rel="noreferrer">
+      <span>⚡ GARANTIR MEU HORÁRIO</span>
+    </a>
+  </div>
 
-    <script src="script.js"></script>
-    <script src="api.js"></script>
-  </body>
+  <!-- 1. Biblioteca oficial do Supabase via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="script.js"></script>
+</body>
+
 </html>

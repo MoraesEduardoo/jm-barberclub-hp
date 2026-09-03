@@ -5,6 +5,37 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    /* ================================================================
+       0. RELÓGIO LOCAL (HH:MM, atualizado a cada minuto)
+    ================================================================ */
+    const clockEl = document.getElementById("localTime");
+    function updateClock() {
+        if (!clockEl) return;
+        const now = new Date();
+        const hh = String(now.getHours()).padStart(2, "0");
+        const mm = String(now.getMinutes()).padStart(2, "0");
+        clockEl.textContent = hh + ":" + mm;
+    }
+    updateClock();
+    setInterval(updateClock, 15000);
+
+    /* ================================================================
+       0.1 BRILHO REATIVO AO CURSOR NOS PAINÉIS DE VIDRO (apenas desktop)
+    ================================================================ */
+    if (!prefersReducedMotion && window.matchMedia("(hover: hover)").matches) {
+        document.querySelectorAll(".panel-glass").forEach((panel) => {
+            panel.addEventListener("pointermove", (e) => {
+                const rect = panel.getBoundingClientRect();
+                panel.style.setProperty("--mx", (e.clientX - rect.left) + "px");
+                panel.style.setProperty("--my", (e.clientY - rect.top) + "px");
+            });
+        });
+    }
+
     /* ================================================================
        1. ANIMAÇÕES DE SCROLL (REVEAL ON SCROLL)
     ================================================================ */
