@@ -1,38 +1,48 @@
 import React from 'react';
 import { Users, Star, Clock, Award } from 'lucide-react';
+import {
+  DEFAULT_TRUST_METRICS,
+  PublicTrustMetrics,
+} from '../../lib/barberCatalog';
 
-const METRICS = [
-  {
-    id: 'metric-clients',
-    value: '+5.000',
-    label: 'Clientes atendidos',
-    icon: Users,
-    iconColor: 'text-blue-500',
-  },
-  {
-    id: 'metric-google',
-    value: '4.9 ★',
-    label: 'Avaliação Google',
-    icon: Star,
-    iconColor: 'text-red-500',
-  },
-  {
-    id: 'metric-punctual',
-    value: '100%',
-    label: 'Pontualidade',
-    icon: Clock,
-    iconColor: 'text-blue-500',
-  },
-  {
-    id: 'metric-specialists',
-    value: '2',
-    label: 'Especialistas',
-    icon: Award,
-    iconColor: 'text-red-500',
-  },
-];
+interface TrustMetricsProps {
+  metrics?: PublicTrustMetrics;
+}
 
-export const TrustMetrics: React.FC = () => {
+export const TrustMetrics: React.FC<TrustMetricsProps> = ({
+  metrics = DEFAULT_TRUST_METRICS,
+}) => {
+  const items = [
+    {
+      id: 'metric-clients',
+      value: metrics.clientsDisplay,
+      label: 'Clientes atendidos',
+      icon: Users,
+      iconColor: 'text-blue-500',
+    },
+    {
+      id: 'metric-google',
+      value: metrics.googleRating,
+      label: 'Avaliação Google',
+      icon: Star,
+      iconColor: 'text-red-500',
+    },
+    {
+      id: 'metric-punctual',
+      value: metrics.punctualityDisplay,
+      label: 'Pontualidade',
+      icon: Clock,
+      iconColor: 'text-blue-500',
+    },
+    {
+      id: 'metric-specialists',
+      value: String(metrics.specialistsCount),
+      label: 'Especialistas',
+      icon: Award,
+      iconColor: 'text-red-500',
+    },
+  ];
+
   return (
     <section
       aria-label="Indicadores de Autoridade JM BarberClub"
@@ -40,7 +50,7 @@ export const TrustMetrics: React.FC = () => {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          {METRICS.map((item) => {
+          {items.map((item) => {
             const IconComponent = item.icon;
             return (
               <div
@@ -51,7 +61,10 @@ export const TrustMetrics: React.FC = () => {
                   <IconComponent className={`w-4 h-4 ${item.iconColor}`} aria-hidden="true" />
                 </div>
                 <div>
-                  <div className="font-mono text-base sm:text-lg font-bold text-white tabular-nums leading-tight">
+                  <div
+                    data-testid={item.id}
+                    className="font-mono text-base sm:text-lg font-bold text-white tabular-nums leading-tight"
+                  >
                     {item.value}
                   </div>
                   <p className="text-xs text-zinc-400">{item.label}</p>

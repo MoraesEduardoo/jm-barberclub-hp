@@ -1,33 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { HomePageView } from '../app/page';
 import {
-  EXECUTIVE_BARBERS,
+  DEFAULT_TRUST_METRICS,
   ExecutiveBarber,
   fetchPublicBarbers,
   fetchPublicServices,
+  fetchTrustMetrics,
   PublicServiceRecord,
-  SEED_PUBLIC_SERVICES,
+  PublicTrustMetrics,
 } from '../lib/barberCatalog';
 
 export function App() {
-  const [services, setServices] = useState<PublicServiceRecord[]>(SEED_PUBLIC_SERVICES);
-  const [barbers, setBarbers] = useState<ExecutiveBarber[]>(EXECUTIVE_BARBERS);
+  const [metrics, setMetrics] = useState<PublicTrustMetrics>(DEFAULT_TRUST_METRICS);
+  const [services, setServices] = useState<PublicServiceRecord[]>([]);
+  const [barbers, setBarbers] = useState<ExecutiveBarber[]>([]);
 
   useEffect(() => {
     let active = true;
-    Promise.all([fetchPublicServices(), fetchPublicBarbers()]).then(
-      ([serviceRows, barberRows]) => {
-        if (!active) return;
-        if (serviceRows.length > 0) setServices(serviceRows);
-        if (barberRows.length > 0) setBarbers(barberRows);
-      }
-    );
+    Promise.all([
+      fetchTrustMetrics(),
+      fetchPublicServices(),
+      fetchPublicBarbers(),
+    ]).then(([metricsData, serviceRows, barberRows]) => {
+      if (!active) return;
+      setMetrics(metricsData);
+      setServices(serviceRows);
+      setBarbers(barberRows);
+    });
     return () => {
       active = false;
     };
   }, []);
 
-  return <HomePageView services={services} barbers={barbers} />;
+  return (
+    <HomePageView
+      metrics={metrics}
+      services={services}
+      barbers={barbers}
+    />
+  );
 }
 
 export default App;

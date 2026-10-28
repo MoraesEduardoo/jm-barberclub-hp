@@ -1,45 +1,43 @@
 import { supabase } from './supabase';
 
-export type GalleryCategory = 'Todos' | 'Fade' | 'Barba' | 'Social' | 'Combos';
-
 export const OFFICIAL_LOGO_URL = '/logo-preta.png';
 export const CHATBOT_PWA_BASE_URL = 'https://chatbot-jmbarberclub.vercel.app/';
 
 export const OFFICIAL_ADDRESS =
   'R. Diogo da Costa, 252 - Monte Santo, Campina Grande - PB, 58400-733';
-export const MATHEUS_WHATSAPP_NUMBER = '(83) 99912-4800';
+export const OFFICIAL_GOOGLE_MAPS_URL =
+  'https://www.google.com/maps/place/JM+Barberclub/@-7.2119184,-35.9003798,17z/data=!4m14!1m7!3m6!1s0x7ac1fccc3c55f51:0x8626bf0f934d1954!2sR.+Diogo+da+Costa,+252+-+Monte+Santo,+Campina+Grande+-+PB,+58400-733!3b1!8m2!3d-7.2119184!4d-35.9003798!3m5!1s0x7ac1f001746841f:0xee46df8375c7ba18!8m2!3d-7.2124517!4d-35.9006183!16s%2Fg%2F11nv04mbwt?entry=ttu';
+
+export const MATHEUS_WHATSAPP_NUMBER = '(83) 99664-6306';
 export const MATHEUS_WHATSAPP_URL =
-  'https://wa.me/5583999124800?text=Ol%C3%A1%20Matheus%2C%20vim%20pelo%20site%20do%20JM%20BarberClub%20e%20gostaria%20de%20falar%20com%20a%20ger%C3%AAncia.';
+  'https://wa.me/5583996646306?text=Ol%C3%A1%20Matheus%2C%20vim%20pelo%20site%20do%20JM%20BarberClub%20e%20gostaria%20de%20falar%20com%20a%20ger%C3%AAncia.';
+
+export interface PublicTrustMetrics {
+  clientsCount: number;
+  clientsDisplay: string;
+  googleRating: string;
+  punctualityDisplay: string;
+  specialistsCount: number;
+}
 
 export interface PublicServiceRecord {
   id: string;
-  slug: string;
   name: string;
-  shortDesc: string;
+  description: string | null;
   duration_minutes: number;
+  price: number;
   price_cents: number;
   price_formatted: string;
-  category: 'Combos' | 'Corte' | 'Barba';
-  is_featured_combo: boolean;
+  category: string;
   image_url: string;
-}
-
-export interface GalleryStyleItem {
-  id: string;
-  title: string;
-  category: Exclude<GalleryCategory, 'Todos'>;
-  barberName: string;
-  serviceSlug: string;
-  image_url: string;
+  display_order: number;
 }
 
 export interface ExecutiveBarber {
   id: string;
-  slug: string;
   name: string;
   role: string;
   specialty: string;
-  signatureServiceSlug: string;
   image_url: string;
 }
 
@@ -50,7 +48,7 @@ export interface ScheduleDay {
 }
 
 /**
- * Generates clean, minimalist OLED SVG illustrations strictly using the official
+ * Generates clean, minimalist OLED SVG fallback illustrations strictly using the official
  * JM BarberClub palette: OLED Black (#000000), Ice White (#F4F4F5), Vibrant Red (#DC2626),
  * and Deep Blue (#1D4ED8). Zero yellow or gold tones.
  */
@@ -128,367 +126,285 @@ export function createMinimalistBarberSvg(
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
-export const SEED_PUBLIC_SERVICES: PublicServiceRecord[] = [
-  {
-    id: 'srv-combo-jm',
-    slug: 'combo-jm',
-    name: 'Combo JM (Corte + Barba + Sobrancelha)',
-    shortDesc: 'Assinatura completa: corte de precisão, barboterapia na toalha quente e sobrancelha.',
-    duration_minutes: 75,
-    price_cents: 9500,
-    price_formatted: 'R$ 95',
-    category: 'Combos',
-    is_featured_combo: true,
-    image_url: createMinimalistBarberSvg(
-      'COMBO JM COMPLETO',
-      '75 MIN · CORTE + BARBA + SOBRANCELHA',
-      '#DC2626',
-      'combo'
-    ),
-  },
-  {
-    id: 'srv-corte-fade',
-    slug: 'corte-degrade-fade',
-    name: 'Corte Degradê (Skin Fade)',
-    shortDesc: 'Transição limpa na navalha/shaver com topo texturizado na tesoura.',
-    duration_minutes: 45,
-    price_cents: 5500,
-    price_formatted: 'R$ 55',
-    category: 'Corte',
-    is_featured_combo: false,
-    image_url: createMinimalistBarberSvg(
-      'CORTE DEGRADÊ FADE',
-      '45 MIN · ACABAMENTO MILIMÉTRICO',
-      '#DC2626',
-      'fade'
-    ),
-  },
-  {
-    id: 'srv-corte-social',
-    slug: 'corte-executivo-social',
-    name: 'Corte Executivo (Tesoura)',
-    shortDesc: 'Estrutura clássica e alinhada para o dia a dia profissional.',
-    duration_minutes: 45,
-    price_cents: 5000,
-    price_formatted: 'R$ 50',
-    category: 'Corte',
-    is_featured_combo: false,
-    image_url: createMinimalistBarberSvg(
-      'CORTE EXECUTIVO',
-      '45 MIN · ALFAIATARIA CAPILAR',
-      '#1D4ED8',
-      'social'
-    ),
-  },
-  {
-    id: 'srv-barba-real',
-    slug: 'barboterapia-toalha-quente',
-    name: 'Barba na Toalha Quente',
-    shortDesc: 'Alinhamento geométrico na navalha com vaporização térmica e pós-barba.',
-    duration_minutes: 35,
-    price_cents: 4500,
-    price_formatted: 'R$ 45',
-    category: 'Barba',
-    is_featured_combo: false,
-    image_url: createMinimalistBarberSvg(
-      'BARBOTERAPIA',
-      '35 MIN · TOALHA QUENTE & NAVALHA',
-      '#1D4ED8',
-      'beard'
-    ),
-  },
-  {
-    id: 'srv-combo-corte-barba',
-    slug: 'combo-corte-e-barba',
-    name: 'Combo Executivo (Corte + Barba)',
-    shortDesc: 'Alinhamento integral de cabelo e barba em sessão única pontual.',
-    duration_minutes: 65,
-    price_cents: 8500,
-    price_formatted: 'R$ 85',
-    category: 'Combos',
-    is_featured_combo: false,
-    image_url: createMinimalistBarberSvg(
-      'CORTE + BARBA',
-      '65 MIN · COMBO EXECUTIVO',
-      '#DC2626',
-      'combo'
-    ),
-  },
-];
-
-export const GALLERY_ITEMS: GalleryStyleItem[] = [
-  {
-    id: 'gal-1',
-    title: 'Mid Drop Fade Texturizado',
-    category: 'Fade',
-    barberName: 'Matheus',
-    serviceSlug: 'corte-degrade-fade',
-    image_url: createMinimalistBarberSvg(
-      'MID DROP FADE',
-      'POR MATHEUS · FADE',
-      '#DC2626',
-      'fade'
-    ),
-  },
-  {
-    id: 'gal-2',
-    title: 'Barba Esculpida na Navalha',
-    category: 'Barba',
-    barberName: 'William',
-    serviceSlug: 'barboterapia-toalha-quente',
-    image_url: createMinimalistBarberSvg(
-      'BARBA ESCULPIDA',
-      'POR WILLIAM · BARBA',
-      '#1D4ED8',
-      'beard'
-    ),
-  },
-  {
-    id: 'gal-3',
-    title: 'Executivo Clássico na Tesoura',
-    category: 'Social',
-    barberName: 'Matheus',
-    serviceSlug: 'corte-executivo-social',
-    image_url: createMinimalistBarberSvg(
-      'EXECUTIVO SOCIAL',
-      'POR MATHEUS · SOCIAL',
-      '#1D4ED8',
-      'social'
-    ),
-  },
-  {
-    id: 'gal-4',
-    title: 'Assinatura Combo JM Completo',
-    category: 'Combos',
-    barberName: 'William',
-    serviceSlug: 'combo-jm',
-    image_url: createMinimalistBarberSvg(
-      'ASSINATURA COMBO JM',
-      'POR WILLIAM · COMBOS',
-      '#DC2626',
-      'combo'
-    ),
-  },
-];
-
-export const EXECUTIVE_BARBERS: ExecutiveBarber[] = [
-  {
-    id: 'barb-matheus',
-    slug: 'matheus',
-    name: 'Matheus',
-    role: 'Barbeiro Executivo & Gestão',
-    specialty: 'Skin Fade de Precisão, Visagismo & Combo JM',
-    signatureServiceSlug: 'combo-jm',
-    image_url: createMinimalistBarberSvg(
-      'MATHEUS',
-      'CADEIRA 01 · ESPECIALISTA',
-      '#DC2626',
-      'barber-m'
-    ),
-  },
-  {
-    id: 'barb-william',
-    slug: 'william',
-    name: 'William',
-    role: 'Barbeiro Executivo',
-    specialty: 'Barboterapia na Toalha Quente, Taper Fade & Cortes Clássicos',
-    signatureServiceSlug: 'combo-jm',
-    image_url: createMinimalistBarberSvg(
-      'WILLIAM',
-      'CADEIRA 02 · ESPECIALISTA',
-      '#1D4ED8',
-      'barber-w'
-    ),
-  },
-];
-
 export const CAMPINA_GRANDE_SCHEDULE: ScheduleDay[] = [
-  { day: 'Terça a Sexta', hours: '09:00 às 20:00', isOpen: true },
-  { day: 'Sábado', hours: '08:30 às 19:00', isOpen: true },
-  { day: 'Domingo e Segunda', hours: 'Fechado', isOpen: false },
+  { day: 'Terça a Sábado', hours: '09:00 às 19:00', isOpen: true },
+  { day: 'Domingo e Feriados', hours: '09:00 às 14:30', isOpen: true },
+  { day: 'Segunda-feira', hours: '14:30 às 19:00', isOpen: true },
 ];
 
-function slugifyText(value: string): string {
-  return value
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+export const DEFAULT_TRUST_METRICS: PublicTrustMetrics = {
+  clientsCount: 0,
+  clientsDisplay: '0',
+  googleRating: '4.9 ★',
+  punctualityDisplay: '100%',
+  specialistsCount: 2,
+};
+
+/**
+ * Pure helper to calculate real client count from `public.clients` records or count metadata.
+ */
+export function computeClientsCount(
+  rows: Array<Record<string, unknown>> | null | undefined,
+  exactCount?: number | null
+): number {
+  if (typeof exactCount === 'number' && exactCount >= 0) {
+    return exactCount;
+  }
+  if (Array.isArray(rows)) {
+    return rows.length;
+  }
+  return 0;
 }
 
-function formatPriceBRL(rawPrice: unknown, rawPriceCents?: unknown): {
+/**
+ * Queries real-time metrics directly from `public.clients` and `public.barbers` in Supabase.
+ */
+export async function fetchTrustMetrics(): Promise<PublicTrustMetrics> {
+  try {
+    const [clientsRes, barbersRes] = await Promise.all([
+      supabase.from('clients').select('id', { count: 'exact' }),
+      supabase.from('barbers').select('id, is_active, active'),
+    ]);
+
+    const clientsCount = computeClientsCount(
+      clientsRes.data as Array<Record<string, unknown>> | null,
+      clientsRes.count
+    );
+
+    const activeBarbers = Array.isArray(barbersRes.data)
+      ? barbersRes.data.filter(
+          (b: Record<string, unknown>) => b.is_active !== false && b.active !== false
+        )
+      : [];
+    const specialistsCount = activeBarbers.length > 0 ? activeBarbers.length : 2;
+
+    return {
+      clientsCount,
+      clientsDisplay: clientsCount.toLocaleString('pt-BR'),
+      googleRating: '4.9 ★',
+      punctualityDisplay: '100%',
+      specialistsCount,
+    };
+  } catch {
+    return DEFAULT_TRUST_METRICS;
+  }
+}
+
+export function formatPriceBRL(
+  rawPrice: unknown,
+  rawPriceInCents?: unknown
+): {
+  price: number;
   cents: number;
   formatted: string;
 } {
-  if (typeof rawPriceCents === 'number' && rawPriceCents > 0) {
-    const reais = rawPriceCents / 100;
-    return {
-      cents: rawPriceCents,
-      formatted: `R$ ${reais % 1 === 0 ? reais.toFixed(0) : reais.toFixed(2).replace('.', ',')}`,
-    };
-  }
   if (typeof rawPrice === 'number' && rawPrice > 0) {
-    // Handle either cents (> 500) or BRL value
-    const reais = rawPrice > 500 ? rawPrice / 100 : rawPrice;
+    const reais = rawPrice;
     return {
+      price: reais,
       cents: Math.round(reais * 100),
       formatted: `R$ ${reais % 1 === 0 ? reais.toFixed(0) : reais.toFixed(2).replace('.', ',')}`,
     };
   }
-  if (typeof rawPrice === 'string' && rawPrice.trim()) {
+  if (typeof rawPriceInCents === 'number' && rawPriceInCents > 0) {
+    const reais = rawPriceInCents / 100;
     return {
-      cents: 5000,
-      formatted: rawPrice.startsWith('R$') ? rawPrice : `R$ ${rawPrice}`,
+      price: reais,
+      cents: rawPriceInCents,
+      formatted: `R$ ${reais % 1 === 0 ? reais.toFixed(0) : reais.toFixed(2).replace('.', ',')}`,
     };
   }
-  return { cents: 5500, formatted: 'R$ 55' };
+  if (typeof rawPrice === 'string' && rawPrice.trim()) {
+    const parsed = Number(rawPrice.replace(/[^0-9.,]/g, '').replace(',', '.'));
+    if (!Number.isNaN(parsed) && parsed > 0) {
+      return {
+        price: parsed,
+        cents: Math.round(parsed * 100),
+        formatted: `R$ ${parsed % 1 === 0 ? parsed.toFixed(0) : parsed.toFixed(2).replace('.', ',')}`,
+      };
+    }
+  }
+  return { price: 0, cents: 0, formatted: 'R$ 0' };
+}
+
+function formatCategoryLabel(rawCategory: unknown, name: string): string {
+  const cat = String(rawCategory || '').toLowerCase();
+  const lowerName = name.toLowerCase();
+  if (cat === 'combo' || lowerName.includes('combo') || lowerName.includes('+')) {
+    return 'Combo';
+  }
+  if (cat === 'barba' || lowerName.includes('barba') || lowerName.includes('barboterapia')) {
+    return 'Barba';
+  }
+  return 'Cabelo';
 }
 
 /**
- * Fetches the dynamic service catalog directly from the `services` table in Supabase.
+ * Fetches the 100% dynamic service catalog directly from `public.services` in Supabase.
  */
 export async function fetchPublicServices(): Promise<PublicServiceRecord[]> {
-  if (supabase) {
-    try {
-      const { data, error } = await supabase.from('services').select('*');
-      if (!error && Array.isArray(data) && data.length > 0) {
-        return data.map((row: Record<string, unknown>, idx: number) => {
-          const name = String(row.name || row.nome || `Serviço JM ${idx + 1}`);
-          const slug = String(row.slug || slugifyText(name));
-          const shortDesc = String(
-            row.shortDesc ||
-              row.description ||
-              row.descricao ||
-              'Atendimento exclusivo JM BarberClub.'
-          );
+  try {
+    const { data, error } = await supabase
+      .from('services')
+      .select('*')
+      .order('display_order', { ascending: true });
+
+    if (!error && Array.isArray(data) && data.length > 0) {
+      return data
+        .filter((row: Record<string, unknown>) => row.is_active !== false && row.active !== false)
+        .map((row: Record<string, unknown>, idx: number) => {
+          const id = String(row.id);
+          const name = String(row.name || '').trim();
+          const description =
+            typeof row.description === 'string' && row.description.trim().length > 0
+              ? row.description.trim()
+              : null;
           const duration = Number(
-            row.duration_minutes || row.duration || row.duracao || 45
+            row.duration_minutes ?? row.default_duration_minutes ?? 30
           );
-          const { cents, formatted } = formatPriceBRL(
-            row.price ?? row.preco ?? row.price_formatted,
-            row.price_cents
+          const { price, cents, formatted } = formatPriceBRL(
+            row.price,
+            row.price_in_cents ?? row.price_cents
           );
-          const isCombo =
-            Boolean(row.is_featured_combo) ||
-            name.toLowerCase().includes('combo jm');
-          const category: PublicServiceRecord['category'] =
-            name.toLowerCase().includes('combo')
-              ? 'Combos'
-              : name.toLowerCase().includes('barba')
-              ? 'Barba'
-              : 'Corte';
+          const category = formatCategoryLabel(row.category, name);
           const imageUrl = String(
             row.image_url ||
-              row.foto_url ||
-              row.image ||
+              row.storage_url ||
               createMinimalistBarberSvg(
                 name.toUpperCase().slice(0, 22),
                 `${duration} MIN · ${formatted}`,
-                isCombo ? '#DC2626' : '#1D4ED8',
-                isCombo ? 'combo' : category === 'Barba' ? 'beard' : 'fade'
+                idx % 2 === 0 ? '#DC2626' : '#1D4ED8',
+                category === 'Combo' ? 'combo' : category === 'Barba' ? 'beard' : 'fade'
               )
           );
 
           return {
-            id: String(row.id || `srv-${idx}`),
-            slug,
+            id,
             name,
-            shortDesc,
+            description,
             duration_minutes: duration,
+            price,
             price_cents: cents,
             price_formatted: formatted,
             category,
-            is_featured_combo: isCombo,
             image_url: imageUrl,
+            display_order: Number(row.display_order ?? idx),
           };
         });
-      }
-    } catch {
-      // Fallback if table or network is unreachable
     }
+  } catch {
+    // Handled gracefully
   }
 
-  return SEED_PUBLIC_SERVICES;
+  return [];
 }
 
 /**
- * Fetches the dynamic team of barbers directly from the `barbers` table in Supabase.
+ * Fetches the 100% dynamic team of barbers directly from `public.barbers` in Supabase,
+ * enriched with their active specialties from `public.barber_services` and `public.services`.
  */
 export async function fetchPublicBarbers(): Promise<ExecutiveBarber[]> {
-  if (supabase) {
-    try {
-      const { data, error } = await supabase.from('barbers').select('*');
-      const rows = !error && Array.isArray(data) && data.length > 0 ? data : null;
-      if (rows) {
-        return rows.map((row: Record<string, unknown>, idx: number) => {
-          const name = String(row.name || row.nome || `Especialista ${idx + 1}`);
-          const slug = String(row.slug || slugifyText(name));
-          const role = String(row.role || row.cargo || 'Barbeiro Executivo');
-          const specialty = String(
-            row.specialty ||
-              row.especialidade ||
-              row.specialties ||
-              'Cortes de Precisão, Degradê & Barboterapia'
-          );
-          const imageUrl = String(
-            row.image_url ||
-              row.avatar_url ||
-              row.foto_url ||
-              row.photo_url ||
-              createMinimalistBarberSvg(
-                name.toUpperCase(),
-                `CADEIRA 0${idx + 1} · ESPECIALISTA`,
-                idx % 2 === 0 ? '#DC2626' : '#1D4ED8',
-                idx % 2 === 0 ? 'barber-m' : 'barber-w'
+  try {
+    const [barbersRes, linksRes, servicesRes] = await Promise.all([
+      supabase.from('barbers').select('*').order('display_order', { ascending: true }),
+      supabase.from('barber_services').select('barber_id, service_id, is_active'),
+      supabase
+        .from('services')
+        .select('id, name, barber_id, display_order, is_active')
+        .order('display_order', { ascending: true }),
+    ]);
+
+    const barberRows =
+      !barbersRes.error && Array.isArray(barbersRes.data)
+        ? barbersRes.data.filter(
+            (row: Record<string, unknown>) => row.is_active !== false && row.active !== false
+          )
+        : [];
+
+    const serviceRows = Array.isArray(servicesRes.data)
+      ? (servicesRes.data as Array<Record<string, unknown>>)
+      : [];
+    const linkRows = Array.isArray(linksRes.data)
+      ? (linksRes.data as Array<Record<string, unknown>>)
+      : [];
+
+    if (barberRows.length > 0) {
+      return barberRows.map((row: Record<string, unknown>, idx: number) => {
+        const barberId = String(row.id);
+        const name = String(row.name || '').trim();
+        const rawRole = String(row.role || '').toLowerCase();
+        const role =
+          rawRole === 'admin'
+            ? 'Barbeiro Especialista · Gestão'
+            : 'Barbeiro Especialista';
+
+        const explicitSpecialty =
+          row.specialty || row.especialidade || row.specialties;
+
+        let specialtyText = '';
+        if (typeof explicitSpecialty === 'string' && explicitSpecialty.trim()) {
+          specialtyText = explicitSpecialty.trim();
+        } else {
+          const activeServiceIds = new Set(
+            linkRows
+              .filter(
+                (l) =>
+                  String(l.barber_id) === barberId && l.is_active !== false
               )
+              .map((l) => String(l.service_id))
           );
 
-          return {
-            id: String(row.id || `barb-${idx}`),
-            slug,
-            name,
-            role,
-            specialty,
-            signatureServiceSlug: String(row.signature_service_slug || 'combo-jm'),
-            image_url: imageUrl,
-          };
-        });
-      }
-    } catch {
-      // Fallback if table or network is unreachable
+          const barberServiceNames = serviceRows
+            .filter(
+              (s) =>
+                s.is_active !== false &&
+                (activeServiceIds.has(String(s.id)) ||
+                  String(s.barber_id || '') === barberId)
+            )
+            .map((s) => String(s.name))
+            .slice(0, 5);
+
+          specialtyText =
+            barberServiceNames.length > 0
+              ? `Especialista em ${barberServiceNames.join(', ')}`
+              : 'Cortes de Precisão, Degradê & Barboterapia';
+        }
+
+        const imageUrl = String(
+          row.avatar_url ||
+            row.image_url ||
+            row.photo_url ||
+            createMinimalistBarberSvg(
+              name.toUpperCase(),
+              `CADEIRA 0${idx + 1} · ESPECIALISTA`,
+              idx % 2 === 0 ? '#DC2626' : '#1D4ED8',
+              idx % 2 === 0 ? 'barber-m' : 'barber-w'
+            )
+        );
+
+        return {
+          id: barberId,
+          name,
+          role,
+          specialty: specialtyText,
+          image_url: imageUrl,
+        };
+      });
     }
+  } catch {
+    // Handled gracefully
   }
 
-  return EXECUTIVE_BARBERS;
-}
-
-export function getHighlightedAndEssentialServices(services: PublicServiceRecord[]): {
-  featuredCombo: PublicServiceRecord;
-  essentialServices: PublicServiceRecord[];
-} {
-  const featuredCombo =
-    services.find((s) => s.is_featured_combo || s.slug === 'combo-jm') || services[0];
-  const essentialServices = services.filter((s) => s.id !== featuredCombo.id);
-  return { featuredCombo, essentialServices };
-}
-
-export function filterGalleryItems(
-  items: GalleryStyleItem[],
-  category: GalleryCategory
-): GalleryStyleItem[] {
-  if (category === 'Todos') return items;
-  return items.filter((item) => item.category === category);
+  return [];
 }
 
 /**
  * Generates direct external URLs to the official JM BarberClub Chatbot PWA
- * (https://chatbot-jmbarberclub.vercel.app/) with optional deep-linking parameters.
+ * (https://chatbot-jmbarberclub.vercel.app/) passing the service ID or barber ID.
  */
 export function buildAgendarUrl(params?: {
   service?: string;
   barber?: string;
-  style?: string;
 }): string {
   const baseUrl = CHATBOT_PWA_BASE_URL;
   if (!params) return baseUrl;
@@ -496,7 +412,6 @@ export function buildAgendarUrl(params?: {
   const searchParams = new URLSearchParams();
   if (params.service) searchParams.set('service', params.service);
   if (params.barber) searchParams.set('barber', params.barber);
-  if (params.style) searchParams.set('style', params.style);
   const query = searchParams.toString();
   return query ? `${baseUrl}?${query}` : baseUrl;
 }

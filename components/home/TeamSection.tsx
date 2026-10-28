@@ -1,20 +1,16 @@
 import React from 'react';
-import { Calendar, MessageCircle } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import {
   buildAgendarUrl,
   createMinimalistBarberSvg,
-  EXECUTIVE_BARBERS,
   ExecutiveBarber,
-  MATHEUS_WHATSAPP_URL,
 } from '../../lib/barberCatalog';
 
 interface TeamSectionProps {
-  barbers?: ExecutiveBarber[];
+  barbers: ExecutiveBarber[];
 }
 
-export const TeamSection: React.FC<TeamSectionProps> = ({
-  barbers = EXECUTIVE_BARBERS,
-}) => {
+export const TeamSection: React.FC<TeamSectionProps> = ({ barbers }) => {
   const handleAvatarFallback = (
     e: React.SyntheticEvent<HTMLImageElement>,
     barber: ExecutiveBarber,
@@ -35,7 +31,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="mb-6">
           <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
-            03. Equipe Executiva
+            02. Equipe Executiva
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
             Especialistas JM BarberClub
@@ -45,12 +41,8 @@ export const TeamSection: React.FC<TeamSectionProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {barbers.map((barber, idx) => {
             const barberBookingUrl = buildAgendarUrl({
-              service: barber.signatureServiceSlug,
-              barber: barber.slug,
+              barber: barber.id,
             });
-            const isMatheus =
-              barber.slug.toLowerCase().includes('matheus') ||
-              barber.name.toLowerCase().includes('matheus');
 
             return (
               <article
@@ -77,26 +69,14 @@ export const TeamSection: React.FC<TeamSectionProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-zinc-900 flex flex-wrap items-center gap-2.5">
+                <div className="pt-3 border-t border-zinc-900">
                   <a
                     href={barberBookingUrl}
-                    className="flex-1 inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap"
+                    className="w-full inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap"
                   >
                     <Calendar className="w-4 h-4" aria-hidden="true" />
                     <span>Agendar com {barber.name}</span>
                   </a>
-
-                  {isMatheus && (
-                    <a
-                      href={MATHEUS_WHATSAPP_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold text-zinc-200 bg-zinc-900 border border-zinc-800 hover:border-blue-500/60 transition-colors whitespace-nowrap"
-                    >
-                      <MessageCircle className="w-4 h-4 text-blue-500" aria-hidden="true" />
-                      <span>WhatsApp Matheus</span>
-                    </a>
-                  )}
                 </div>
               </article>
             );

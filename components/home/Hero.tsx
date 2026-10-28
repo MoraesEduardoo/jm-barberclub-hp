@@ -7,7 +7,7 @@ import {
 } from '../../lib/barberCatalog';
 
 export const Hero: React.FC = () => {
-  const bookingUrl = buildAgendarUrl({ service: 'combo-jm' });
+  const bookingUrl = buildAgendarUrl();
 
   return (
     <section

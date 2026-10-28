@@ -3,12 +3,11 @@ import { Calendar } from 'lucide-react';
 import { buildAgendarUrl, OFFICIAL_LOGO_URL } from '../../lib/barberCatalog';
 
 export const Header: React.FC = () => {
-  const bookingHref = buildAgendarUrl({ service: 'combo-jm' });
+  const bookingHref = buildAgendarUrl();
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-zinc-950/80 border-b border-zinc-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-8">
-        {/* Zone 1: Brand Lockup (Single Clean Element) */}
         <a
           href="#"
           className="flex items-center gap-2.5 text-white font-semibold tracking-tight whitespace-nowrap shrink-0"
@@ -24,7 +23,6 @@ export const Header: React.FC = () => {
           </span>
         </a>
 
-        {/* Zone 2: 4 Concise Single-Line Anchor Links */}
         <nav
           aria-label="Navegação Principal"
           className="hidden md:flex items-center gap-7 text-sm font-medium text-zinc-400"
@@ -36,16 +34,10 @@ export const Header: React.FC = () => {
             Serviços
           </a>
           <a
-            href="#galeria"
-            className="hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
-          >
-            Galeria
-          </a>
-          <a
             href="#equipe"
             className="hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
           >
-            Equipe
+            Especialistas
           </a>
           <a
             href="#localizacao"
@@ -55,7 +47,6 @@ export const Header: React.FC = () => {
           </a>
         </nav>
 
-        {/* Zone 3: 1 Primary Red Action CTA */}
         <div className="flex items-center shrink-0">
           <a
             href={bookingHref}

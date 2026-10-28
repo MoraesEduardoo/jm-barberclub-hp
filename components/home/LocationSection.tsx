@@ -1,25 +1,20 @@
 import React from 'react';
-import { MapPin, Clock, Navigation, MessageCircle } from 'lucide-react';
+import { MapPin, Clock, MessageCircle } from 'lucide-react';
 import {
   CAMPINA_GRANDE_SCHEDULE,
   MATHEUS_WHATSAPP_NUMBER,
   MATHEUS_WHATSAPP_URL,
   OFFICIAL_ADDRESS,
+  OFFICIAL_GOOGLE_MAPS_URL,
 } from '../../lib/barberCatalog';
 
 export const LocationSection: React.FC = () => {
-  const encodedAddress = encodeURIComponent(
-    'R. Diogo da Costa, 252 - Monte Santo, Campina Grande - PB, 58400-733'
-  );
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-  const wazeUrl = `https://waze.com/ul?q=${encodedAddress}&navigate=yes`;
-
   return (
     <section id="localizacao" className="scroll-mt-16 py-12 sm:py-16 bg-black border-b border-zinc-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="mb-6">
           <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
-            04. Onde Estamos & Contacto
+            03. Onde Estamos & Contacto
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
             Localização & Horários
@@ -27,7 +22,7 @@ export const LocationSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-          {/* Official Monte Santo Address & Direct Navigation Buttons */}
+          {/* Official Monte Santo Address & Direct Navigation Buttons (Google Maps + WhatsApp only, no Waze) */}
           <div className="lg:col-span-7 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-5 sm:p-6 flex flex-col justify-between gap-5">
             <div className="flex items-start gap-3.5">
               <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0">
@@ -46,35 +41,25 @@ export const LocationSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-3 border-t border-zinc-900">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 border-t border-zinc-900">
               <a
-                href={googleMapsUrl}
+                href={OFFICIAL_GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap"
               >
                 <MapPin className="w-4 h-4" aria-hidden="true" />
-                <span>Google Maps</span>
-              </a>
-
-              <a
-                href={wazeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-zinc-900 border border-zinc-800 hover:border-blue-500/60 transition-colors whitespace-nowrap"
-              >
-                <Navigation className="w-4 h-4 text-blue-500" aria-hidden="true" />
-                <span>Abrir no Waze</span>
+                <span>Abrir no Google Maps</span>
               </a>
 
               <a
                 href={MATHEUS_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-zinc-900 border border-blue-900/60 hover:border-blue-500 transition-colors whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-zinc-900 border border-blue-900/60 hover:border-blue-500 transition-colors whitespace-nowrap"
               >
                 <MessageCircle className="w-4 h-4 text-blue-500" aria-hidden="true" />
-                <span>WhatsApp Matheus</span>
+                <span>WhatsApp {MATHEUS_WHATSAPP_NUMBER}</span>
               </a>
             </div>
           </div>

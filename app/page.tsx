@@ -3,26 +3,28 @@ import Header from '../components/home/Header';
 import Hero from '../components/home/Hero';
 import TrustMetrics from '../components/home/TrustMetrics';
 import ServicesCatalog from '../components/home/ServicesCatalog';
-import GalleryGrid from '../components/home/GalleryGrid';
 import TeamSection from '../components/home/TeamSection';
 import LocationSection from '../components/home/LocationSection';
 import Footer from '../components/home/Footer';
 import {
-  EXECUTIVE_BARBERS,
+  DEFAULT_TRUST_METRICS,
   ExecutiveBarber,
   fetchPublicBarbers,
   fetchPublicServices,
+  fetchTrustMetrics,
   PublicServiceRecord,
-  SEED_PUBLIC_SERVICES,
+  PublicTrustMetrics,
 } from '../lib/barberCatalog';
 
 // Next.js App Router ISR revalidation (60 seconds)
 export const revalidate = 60;
 
 export function HomePageView({
-  services = SEED_PUBLIC_SERVICES,
-  barbers = EXECUTIVE_BARBERS,
+  metrics = DEFAULT_TRUST_METRICS,
+  services = [],
+  barbers = [],
 }: {
+  metrics?: PublicTrustMetrics;
   services?: PublicServiceRecord[];
   barbers?: ExecutiveBarber[];
 }) {
@@ -31,9 +33,8 @@ export function HomePageView({
       <Header />
       <main>
         <Hero />
-        <TrustMetrics />
+        <TrustMetrics metrics={metrics} />
         <ServicesCatalog services={services} />
-        <GalleryGrid />
         <TeamSection barbers={barbers} />
         <LocationSection />
       </main>
@@ -43,9 +44,17 @@ export function HomePageView({
 }
 
 export default async function HomePage() {
-  const [services, barbers] = await Promise.all([
+  const [metrics, services, barbers] = await Promise.all([
+    fetchTrustMetrics(),
     fetchPublicServices(),
     fetchPublicBarbers(),
   ]);
-  return <HomePageView services={services} barbers={barbers} />;
+
+  return (
+    <HomePageView
+      metrics={metrics}
+      services={services}
+      barbers={barbers}
+    />
+  );
 }
