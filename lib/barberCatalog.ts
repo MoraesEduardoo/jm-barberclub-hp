@@ -1,7 +1,7 @@
 import { supabase } from './supabase';
 
 export const OFFICIAL_LOGO_URL = '/logo-preta.png';
-export const CHATBOT_PWA_BASE_URL = 'https://chatbot-jmbarberclub.vercel.app/';
+export const CHATBOT_PWA_BASE_URL = 'https://chat.inbarberapp.com/jmbarberclub';
 
 export const OFFICIAL_ADDRESS =
   'R. Diogo da Costa, 252 - Monte Santo, Campina Grande - PB, 58400-733';

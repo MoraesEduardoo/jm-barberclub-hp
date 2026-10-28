@@ -42,7 +42,7 @@ test('formatPriceBRL formats prices accurately', () => {
 
 test('fetches real clients count, services, and barbers dynamically from Supabase and enforces official links/hours', async () => {
   assert.equal(OFFICIAL_LOGO_URL, '/logo-preta.png');
-  assert.equal(CHATBOT_PWA_BASE_URL, 'https://chatbot-jmbarberclub.vercel.app/');
+  assert.equal(CHATBOT_PWA_BASE_URL, 'https://chat.inbarberapp.com/jmbarberclub');
   assert.equal(
     OFFICIAL_ADDRESS,
     'R. Diogo da Costa, 252 - Monte Santo, Campina Grande - PB, 58400-733'
@@ -77,7 +77,7 @@ test('fetches real clients count, services, and barbers dynamically from Supabas
   const serviceDeepLink = buildAgendarUrl({ service: services[0].id });
   assert.equal(
     serviceDeepLink,
-    `https://chatbot-jmbarberclub.vercel.app/?service=${services[0].id}`
+    `https://chat.inbarberapp.com/jmbarberclub?service=${services[0].id}`
   );
 
   assert.ok(barbers.length >= 2, 'Expected barbers from public.barbers');
