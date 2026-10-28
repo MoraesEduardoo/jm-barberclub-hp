@@ -2,7 +2,7 @@ import React from 'react';
 import '../src/index.css';
 
 export const metadata = {
-  title: 'JM BarberClub | Barbearia Premium em Campina Grande, PB',
+  title: 'JM Barberclub | Barbearia Premium em Campina Grande, PB',
   description:
     'O padrão que define o homem de Campina Grande. Corte executivo, degradê de precisão, barboterapia com toalha quente e Combo JM com os especialistas Matheus e William.',
 };

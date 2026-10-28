@@ -15,12 +15,12 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-3">
             <img
               src={OFFICIAL_LOGO_URL}
-              alt="Logótipo JM BarberClub"
+              alt="Logótipo JM Barberclub"
               referrerPolicy="no-referrer"
               className="w-9 h-9 rounded-full object-cover border border-zinc-800"
             />
             <div>
-              <p className="text-white font-bold text-sm">JM BarberClub</p>
+              <p className="text-white font-bold text-sm">JM Barberclub</p>
               <p className="text-zinc-500">{OFFICIAL_ADDRESS}</p>
             </div>
           </div>
@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="font-mono text-zinc-500 tabular-nums text-center sm:text-right">
-            © {new Date().getFullYear()} JM BarberClub.
+            © {new Date().getFullYear()} JM Barberclub.
           </div>
         </div>
       </div>

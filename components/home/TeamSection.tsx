@@ -34,7 +34,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ barbers }) => {
             02. Equipe Executiva
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
-            Especialistas JM BarberClub
+            Especialistas JM Barberclub
           </h2>
         </div>
 

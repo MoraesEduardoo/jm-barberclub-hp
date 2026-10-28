@@ -10,7 +10,7 @@ export const OFFICIAL_GOOGLE_MAPS_URL =
 
 export const MATHEUS_WHATSAPP_NUMBER = '(83) 99664-6306';
 export const MATHEUS_WHATSAPP_URL =
-  'https://wa.me/5583996646306?text=Ol%C3%A1%20Matheus%2C%20vim%20pelo%20site%20do%20JM%20BarberClub%20e%20gostaria%20de%20falar%20com%20a%20ger%C3%AAncia.';
+  'https://wa.me/5583996646306?text=Ol%C3%A1%20Matheus%2C%20vim%20pelo%20site%20do%20JM%20Barberclub%20e%20gostaria%20de%20falar%20com%20a%20ger%C3%AAncia.';
 
 export interface PublicTrustMetrics {
   clientsCount: number;

@@ -14,7 +14,7 @@ export const LocationSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="mb-6">
           <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
-            03. Onde Estamos & Contacto
+            03. Onde Estamos & Contato
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
             Localização & Horários
@@ -22,7 +22,7 @@ export const LocationSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-          {/* Official Monte Santo Address & Direct Navigation Buttons (Google Maps + WhatsApp only, no Waze) */}
+          {/* Official Monte Santo Address & Direct Navigation Buttons */}
           <div className="lg:col-span-7 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-5 sm:p-6 flex flex-col justify-between gap-5">
             <div className="flex items-start gap-3.5">
               <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0">
@@ -64,45 +64,31 @@ export const LocationSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Official Real Operating Hours */}
-          <div className="lg:col-span-5 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-5 sm:p-6 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Clock className="w-4 h-4 text-blue-500" aria-hidden="true" />
-                <h3 className="font-display text-base font-bold text-white">
-                  Horários de Funcionamento
-                </h3>
-              </div>
-
-              <div className="divide-y divide-zinc-900 border-t border-b border-zinc-900">
-                {CAMPINA_GRANDE_SCHEDULE.map((row) => (
-                  <div
-                    key={row.day}
-                    className="py-2.5 flex items-center justify-between text-xs sm:text-sm"
-                  >
-                    <span className="text-zinc-300 font-medium">{row.day}</span>
-                    <span
-                      className={`font-mono tabular-nums ${
-                        row.isOpen ? 'text-white font-semibold' : 'text-zinc-500'
-                      }`}
-                    >
-                      {row.hours}
-                    </span>
-                  </div>
-                ))}
-              </div>
+          {/* Official Real Operating Hours — Strictly Only Operating Hours */}
+          <div className="lg:col-span-5 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-5 sm:p-6 flex flex-col justify-center">
+            <div className="flex items-center gap-2 mb-4">
+              <Clock className="w-4 h-4 text-blue-500" aria-hidden="true" />
+              <h3 className="font-display text-base font-bold text-white">
+                Horários de Funcionamento
+              </h3>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-zinc-900 flex items-center justify-between text-xs text-zinc-400">
-              <span>Contacto da Gerência (Matheus)</span>
-              <a
-                href={MATHEUS_WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-blue-400 hover:underline tabular-nums font-semibold"
-              >
-                {MATHEUS_WHATSAPP_NUMBER}
-              </a>
+            <div className="divide-y divide-zinc-900 border-t border-b border-zinc-900">
+              {CAMPINA_GRANDE_SCHEDULE.map((row) => (
+                <div
+                  key={row.day}
+                  className="py-2.5 flex items-center justify-between text-xs sm:text-sm"
+                >
+                  <span className="text-zinc-300 font-medium">{row.day}</span>
+                  <span
+                    className={`font-mono tabular-nums ${
+                      row.isOpen ? 'text-white font-semibold' : 'text-zinc-500'
+                    }`}
+                  >
+                    {row.hours}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

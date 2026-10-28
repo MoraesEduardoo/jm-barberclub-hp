@@ -30,7 +30,7 @@ export const Hero: React.FC = () => {
             <div className="relative w-44 h-44 sm:w-56 sm:h-56 lg:w-72 lg:h-72 rounded-3xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-4 flex items-center justify-center shadow-2xl">
               <img
                 src={OFFICIAL_LOGO_URL}
-                alt="Logótipo Oficial JM BarberClub Campina Grande"
+                alt="Logótipo Oficial JM Barberclub Campina Grande"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-contain rounded-2xl"
               />

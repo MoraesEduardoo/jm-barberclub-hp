@@ -45,7 +45,7 @@ export const TrustMetrics: React.FC<TrustMetricsProps> = ({
 
   return (
     <section
-      aria-label="Indicadores de Autoridade JM BarberClub"
+      aria-label="Indicadores de Autoridade JM Barberclub"
       className="py-6 bg-black border-b border-zinc-900"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

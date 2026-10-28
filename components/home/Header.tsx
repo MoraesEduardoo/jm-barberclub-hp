@@ -14,12 +14,12 @@ export const Header: React.FC = () => {
         >
           <img
             src={OFFICIAL_LOGO_URL}
-            alt="Logótipo Oficial JM BarberClub"
+            alt="Logótipo Oficial JM Barberclub"
             referrerPolicy="no-referrer"
             className="w-9 h-9 rounded-full object-cover border border-zinc-800"
           />
           <span className="text-base sm:text-lg font-bold tracking-tight">
-            JM BarberClub
+            JM Barberclub
           </span>
         </a>
 
