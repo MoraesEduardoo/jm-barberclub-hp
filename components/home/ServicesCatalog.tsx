@@ -1,0 +1,155 @@
+import React from 'react';
+import { Clock, ArrowUpRight } from 'lucide-react';
+import {
+  buildAgendarUrl,
+  createMinimalistBarberSvg,
+  getHighlightedAndEssentialServices,
+  PublicServiceRecord,
+} from '../../lib/barberCatalog';
+
+interface ServicesCatalogProps {
+  services: PublicServiceRecord[];
+}
+
+export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) => {
+  const { featuredCombo, essentialServices } = getHighlightedAndEssentialServices(services);
+  const featuredHref = buildAgendarUrl({ service: featuredCombo.slug });
+
+  const handleImageFallback = (
+    e: React.SyntheticEvent<HTMLImageElement>,
+    service: PublicServiceRecord
+  ) => {
+    const target = e.currentTarget;
+    target.onerror = null;
+    target.src = createMinimalistBarberSvg(
+      service.name.toUpperCase().slice(0, 22),
+      `${service.duration_minutes} MIN · ${service.price_formatted}`,
+      service.is_featured_combo ? '#DC2626' : '#1D4ED8',
+      service.is_featured_combo ? 'combo' : 'fade'
+    );
+  };
+
+  return (
+    <section id="servicos" className="scroll-mt-16 py-12 sm:py-16 bg-black border-b border-zinc-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Clean Minimalist Header */}
+        <div className="flex items-end justify-between gap-4 mb-6">
+          <div>
+            <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
+              01. Catálogo Dinâmico
+            </p>
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
+              Serviços & Preços
+            </h2>
+          </div>
+          <span className="text-xs text-zinc-400 hidden sm:inline">
+            Toque para agendar no Chatbot Oficial
+          </span>
+        </div>
+
+        {/* Highlighted "Combo JM" Compact Banner Card */}
+        <div className="mb-6 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-red-600/40 p-4 sm:p-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+            <div className="md:col-span-4">
+              <img
+                src={featuredCombo.image_url}
+                alt={featuredCombo.name}
+                referrerPolicy="no-referrer"
+                onError={(e) => handleImageFallback(e, featuredCombo)}
+                className="w-full h-44 object-cover object-center rounded-xl border border-zinc-900"
+              />
+            </div>
+
+            <div className="md:col-span-8 flex flex-col justify-between space-y-3">
+              <div className="flex items-center gap-2 text-xs font-mono">
+                <span className="text-red-500 font-semibold">DESTAQUE · MAIS PEDIDO</span>
+                <span aria-hidden="true" className="text-zinc-600">·</span>
+                <span className="text-zinc-300 tabular-nums">
+                  {featuredCombo.duration_minutes} min
+                </span>
+              </div>
+
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
+                {featuredCombo.name}
+              </h3>
+
+              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                {featuredCombo.shortDesc}
+              </p>
+
+              <div className="pt-2 flex items-center justify-between gap-4">
+                <span className="font-mono text-2xl font-bold text-white tabular-nums">
+                  {featuredCombo.price_formatted}
+                </span>
+
+                <a
+                  href={featuredHref}
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap shrink-0"
+                >
+                  <span>Agendar Combo JM</span>
+                  <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Essential Services: Horizontal Touch Carousel on Mobile, 4-Col Grid on Desktop */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-4">
+          {essentialServices.map((service) => {
+            const serviceHref = buildAgendarUrl({ service: service.slug });
+            return (
+              <article
+                key={service.id}
+                className="snap-start shrink-0 w-[260px] md:w-auto rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-4 flex flex-col justify-between"
+              >
+                <div>
+                  <img
+                    src={service.image_url}
+                    alt={service.name}
+                    referrerPolicy="no-referrer"
+                    onError={(e) => handleImageFallback(e, service)}
+                    className="w-full h-36 object-cover object-center rounded-xl border border-zinc-900 mb-3"
+                  />
+
+                  <div className="flex items-center justify-between text-xs text-zinc-400 font-mono mb-1 tabular-nums">
+                    <span className="text-blue-400">{service.category}</span>
+                    <span className="inline-flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-blue-500" aria-hidden="true" />
+                      {service.duration_minutes} min
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-base font-bold text-white mb-1">
+                    {service.name}
+                  </h3>
+
+                  <p className="text-xs text-zinc-400 line-clamp-2 mb-4">
+                    {service.shortDesc}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-zinc-900 flex items-center justify-between gap-2">
+                  <span className="font-mono text-lg font-bold text-white tabular-nums">
+                    {service.price_formatted}
+                  </span>
+
+                  <a
+                    href={serviceHref}
+                    aria-label={`Agendar este serviço: ${service.name}`}
+                    className="inline-flex items-center justify-center gap-1 min-h-[40px] px-3.5 py-2 rounded-lg text-xs font-semibold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap shrink-0"
+                  >
+                    <span>Agendar este</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ServicesCatalog;

@@ -1,0 +1,8 @@
+{
+  "name": "JM Barberclub",
+  "description": "Bespoke traditional barbering, hot towel straight-razor shaves, and interactive chair booking studio for JM Barberclub.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
