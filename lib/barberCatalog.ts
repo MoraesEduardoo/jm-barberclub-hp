@@ -128,8 +128,8 @@ export function createMinimalistBarberSvg(
 
 export const CAMPINA_GRANDE_SCHEDULE: ScheduleDay[] = [
   { day: 'Terça a Sábado', hours: '09:00 às 19:00', isOpen: true },
-  { day: 'Domingo e Feriados', hours: '09:00 às 14:30', isOpen: true },
-  { day: 'Segunda-feira', hours: '14:30 às 19:00', isOpen: true },
+  { day: 'Domingo', hours: '09:00 às 12:30', isOpen: true },
+  { day: 'Segunda-feira (William)', hours: '14:30 às 19:00', isOpen: true },
 ];
 
 export const DEFAULT_TRUST_METRICS: PublicTrustMetrics = {

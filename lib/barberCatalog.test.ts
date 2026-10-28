@@ -57,9 +57,9 @@ test('fetches real clients count, services, and barbers dynamically from Supabas
   assert.equal(CAMPINA_GRANDE_SCHEDULE.length, 3);
   assert.equal(CAMPINA_GRANDE_SCHEDULE[0].day, 'Terça a Sábado');
   assert.equal(CAMPINA_GRANDE_SCHEDULE[0].hours, '09:00 às 19:00');
-  assert.equal(CAMPINA_GRANDE_SCHEDULE[1].day, 'Domingo e Feriados');
-  assert.equal(CAMPINA_GRANDE_SCHEDULE[1].hours, '09:00 às 14:30');
-  assert.equal(CAMPINA_GRANDE_SCHEDULE[2].day, 'Segunda-feira');
+  assert.equal(CAMPINA_GRANDE_SCHEDULE[1].day, 'Domingo');
+  assert.equal(CAMPINA_GRANDE_SCHEDULE[1].hours, '09:00 às 12:30');
+  assert.equal(CAMPINA_GRANDE_SCHEDULE[2].day, 'Segunda-feira (William)');
   assert.equal(CAMPINA_GRANDE_SCHEDULE[2].hours, '14:30 às 19:00');
 
   const [services, barbers, metrics] = await Promise.all([
