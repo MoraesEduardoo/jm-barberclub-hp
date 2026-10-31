@@ -34,6 +34,12 @@ export const Header: React.FC = () => {
             Serviços
           </a>
           <a
+            href="#produtos"
+            className="hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+          >
+            Produtos
+          </a>
+          <a
             href="#equipe"
             className="hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
           >

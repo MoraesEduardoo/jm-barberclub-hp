@@ -14,7 +14,7 @@ export const LocationSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="mb-6">
           <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
-            03. Onde Estamos & Contato
+            04. Onde Estamos & Contato
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
             Localização & Horários

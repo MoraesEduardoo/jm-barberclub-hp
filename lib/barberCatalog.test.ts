@@ -2,11 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildAgendarUrl,
+  buildProductOrderWhatsAppUrl,
   CAMPINA_GRANDE_SCHEDULE,
   CHATBOT_PWA_BASE_URL,
+  computeCartSummary,
   computeClientsCount,
   createMinimalistBarberSvg,
+  createMinimalistProductSvg,
   fetchPublicBarbers,
+  fetchPublicProducts,
   fetchPublicServices,
   fetchTrustMetrics,
   formatPriceBRL,
@@ -26,7 +30,8 @@ test('computeClientsCount calculates client count from public.clients accurately
 test('strictly enforces zero yellow or gold colors in generated SVG assets', () => {
   const svgA = createMinimalistBarberSvg('CORTE', '30 MIN', '#DC2626', 'fade');
   const svgB = createMinimalistBarberSvg('BARBA', '30 MIN', '#1D4ED8', 'beard');
-  for (const dataUri of [svgA, svgB]) {
+  const svgC = createMinimalistProductSvg('PRODUTO', 'ESTOQUE: 5', '#DC2626', 'jar');
+  for (const dataUri of [svgA, svgB, svgC]) {
     const decoded = decodeURIComponent(dataUri).toLowerCase();
     assert.equal(decoded.includes('#d4af37'), false, 'Found forbidden gold #d4af37');
     assert.equal(decoded.includes('#f59e0b'), false, 'Found forbidden amber #f59e0b');
@@ -38,6 +43,38 @@ test('formatPriceBRL formats prices accurately', () => {
   assert.equal(formatPriceBRL(30, 3000).formatted, 'R$ 30');
   assert.equal(formatPriceBRL(45, 4500).formatted, 'R$ 45');
   assert.equal(formatPriceBRL(25, 2500).formatted, 'R$ 25');
+});
+
+test('fetches active products from public.products in Supabase and formats WhatsApp cart order accurately', async () => {
+  const products = await fetchPublicProducts();
+  assert.ok(products.length > 0, 'Expected active products from public.products in Supabase');
+  assert.ok(
+    products.every(
+      (p) =>
+        p.id &&
+        p.name &&
+        p.price > 0 &&
+        p.stock_quantity >= 0 &&
+        p.image_url.startsWith('http')
+    ),
+    'All dynamic products must have id, name, price, stock_quantity, and Supabase Storage image_url'
+  );
+
+  const cartItems = [
+    { product: products[0], quantity: 2 },
+    { product: products[1], quantity: 1 },
+  ];
+  const expectedTotal = products[0].price * 2 + products[1].price;
+  const summary = computeCartSummary(cartItems);
+  assert.equal(summary.totalItems, 3);
+  assert.equal(summary.totalPrice, expectedTotal);
+
+  const waUrl = buildProductOrderWhatsAppUrl(cartItems);
+  assert.ok(waUrl.startsWith('https://wa.me/5583996646306?text='));
+  const decodedText = decodeURIComponent(waUrl.split('text=')[1]);
+  assert.ok(decodedText.includes(`2x ${products[0].name}`));
+  assert.ok(decodedText.includes(`1x ${products[1].name}`));
+  assert.ok(decodedText.includes(summary.totalFormatted));
 });
 
 test('fetches real clients count, services, and barbers dynamically from Supabase and enforces official links/hours', async () => {
@@ -87,3 +124,5 @@ test('fetches real clients count, services, and barbers dynamically from Supabas
   assert.equal(metrics.googleRating, '4.9 ★');
   assert.ok(metrics.clientsCount > 0, 'Expected positive client count from public.clients');
 });
+
+

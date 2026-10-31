@@ -31,7 +31,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ barbers }) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="mb-6">
           <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
-            02. Equipe Executiva
+            03. Equipe Executiva
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
             Especialistas JM Barberclub

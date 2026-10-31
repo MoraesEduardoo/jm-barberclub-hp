@@ -3,13 +3,16 @@ import Header from '../components/home/Header';
 import Hero from '../components/home/Hero';
 import TrustMetrics from '../components/home/TrustMetrics';
 import ServicesCatalog from '../components/home/ServicesCatalog';
+import ProductsCatalog from '../components/home/ProductsCatalog';
 import TeamSection from '../components/home/TeamSection';
 import LocationSection from '../components/home/LocationSection';
 import Footer from '../components/home/Footer';
 import {
+  BarberProduct,
   DEFAULT_TRUST_METRICS,
   ExecutiveBarber,
   fetchPublicBarbers,
+  fetchPublicProducts,
   fetchPublicServices,
   fetchTrustMetrics,
   PublicServiceRecord,
@@ -22,10 +25,12 @@ export const revalidate = 60;
 export function HomePageView({
   metrics = DEFAULT_TRUST_METRICS,
   services = [],
+  products = [],
   barbers = [],
 }: {
   metrics?: PublicTrustMetrics;
   services?: PublicServiceRecord[];
+  products?: BarberProduct[];
   barbers?: ExecutiveBarber[];
 }) {
   return (
@@ -35,6 +40,7 @@ export function HomePageView({
         <Hero />
         <TrustMetrics metrics={metrics} />
         <ServicesCatalog services={services} />
+        <ProductsCatalog products={products} />
         <TeamSection barbers={barbers} />
         <LocationSection />
       </main>
@@ -44,9 +50,10 @@ export function HomePageView({
 }
 
 export default async function HomePage() {
-  const [metrics, services, barbers] = await Promise.all([
+  const [metrics, services, products, barbers] = await Promise.all([
     fetchTrustMetrics(),
     fetchPublicServices(),
+    fetchPublicProducts(),
     fetchPublicBarbers(),
   ]);
 
@@ -54,6 +61,7 @@ export default async function HomePage() {
     <HomePageView
       metrics={metrics}
       services={services}
+      products={products}
       barbers={barbers}
     />
   );
