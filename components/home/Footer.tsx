@@ -21,7 +21,9 @@ export const Footer: React.FC = () => {
             />
             <div>
               <p className="text-white font-bold text-sm">JM Barberclub</p>
-              <p className="text-zinc-500">{OFFICIAL_ADDRESS}</p>
+              <p className="text-xs font-light text-zinc-400 tracking-wide">
+                {OFFICIAL_ADDRESS}
+              </p>
             </div>
           </div>
 

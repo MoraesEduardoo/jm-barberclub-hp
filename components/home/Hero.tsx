@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Official Brand Emblem (/logo-preta.png) First on Mobile */}
           <div className="lg:col-span-5 lg:order-2 flex justify-center">
-            <div className="relative w-44 h-44 sm:w-56 sm:h-56 lg:w-72 lg:h-72 rounded-3xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-4 flex items-center justify-center shadow-2xl">
+            <div className="relative w-44 h-44 sm:w-56 sm:h-56 lg:w-72 lg:h-72 rounded-3xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-6 flex items-center justify-center shadow-2xl">
               <img
                 src={OFFICIAL_LOGO_URL}
                 alt="Logótipo Oficial JM Barberclub Campina Grande"
@@ -39,8 +39,8 @@ export const Hero: React.FC = () => {
 
           {/* Minimalist Mobile-First Value Proposition */}
           <div className="lg:col-span-7 lg:order-1 text-center lg:text-left space-y-5">
-            <p className="text-xs sm:text-sm font-mono text-zinc-300 tracking-wide">
-              📍 Campina Grande, PB <span className="text-blue-500">·</span>{' '}
+            <p className="text-xs font-light font-mono text-zinc-400 tracking-wide">
+              Campina Grande, PB <span className="text-blue-500">·</span>{' '}
               <span className="text-red-500 font-semibold">Barbearia Premium</span>
             </p>
 
@@ -52,7 +52,7 @@ export const Hero: React.FC = () => {
               <span className="text-red-500">Campina Grande</span>
             </h1>
 
-            <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-xs sm:text-sm font-light text-zinc-400 tracking-wide max-w-xl mx-auto lg:mx-0 leading-relaxed">
               Cortes executivos, degradê milimétrico e barboterapia na toalha quente com horário 100% pontual no bairro Monte Santo.
             </p>
 
@@ -60,7 +60,7 @@ export const Hero: React.FC = () => {
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3">
               <a
                 href={bookingUrl}
-                className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3.5 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3.5 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 whitespace-nowrap"
               >
                 <span>Agendar Meu Atendimento</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />

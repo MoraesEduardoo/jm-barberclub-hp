@@ -34,7 +34,7 @@ export function HomePageView({
   barbers?: ExecutiveBarber[];
 }) {
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-red-600/30 selection:text-white">
+    <div className="min-h-screen pb-28 bg-black text-white selection:bg-red-600/30 selection:text-white">
       <Header />
       <main>
         <Hero />

@@ -157,7 +157,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
           </div>
 
           {/* Dynamic Products from public.products: Horizontal Carousel on Mobile, Responsive Grid on Desktop */}
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {catalogList.map((product, idx) => {
               const quantityInCart = cart[product.id]?.quantity ?? 0;
               const isOutOfStock = product.stock_quantity <= 0;
@@ -168,10 +168,10 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
               return (
                 <article
                   key={product.id}
-                  className="snap-start shrink-0 w-[272px] md:w-auto rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-4 flex flex-col justify-between transition-colors hover:border-zinc-800"
+                  className="snap-start shrink-0 w-[280px] md:w-auto rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-6 flex flex-col justify-between transition-colors hover:border-zinc-800"
                 >
                   <div>
-                    <div className="relative mb-3.5">
+                    <div className="relative mb-4">
                       <img
                         src={product.image_url}
                         alt={product.name}
@@ -186,7 +186,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                       )}
                     </div>
 
-                    <div className="flex items-center justify-between text-xs text-zinc-400 font-mono mb-1.5 tabular-nums">
+                    <div className="flex items-center justify-between text-xs text-zinc-400 font-mono mb-2 tabular-nums">
                       <span className="text-blue-400">{product.category}</span>
                       <span className="inline-flex items-center gap-1">
                         <Package
@@ -199,18 +199,18 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                       </span>
                     </div>
 
-                    <h3 className="font-display text-base font-bold text-white mb-1">
+                    <h3 className="font-display text-base font-bold text-white mb-1.5">
                       {product.name}
                     </h3>
 
                     {product.description && (
-                      <p className="text-xs text-zinc-400 line-clamp-2 mb-4">
+                      <p className="text-xs font-light text-zinc-400 tracking-wide line-clamp-2 mb-4 leading-relaxed">
                         {product.description}
                       </p>
                     )}
                   </div>
 
-                  <div className="pt-3 mt-2 border-t border-zinc-900 flex items-center justify-between gap-2">
+                  <div className="pt-4 mt-2 border-t border-zinc-900 flex items-center justify-between gap-2">
                     <span className="font-mono text-lg font-bold text-white tabular-nums">
                       {product.price_formatted}
                     </span>
@@ -220,10 +220,10 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                       disabled={isOutOfStock || isStockLimitReached}
                       onClick={() => handleAddProduct(product)}
                       aria-label={`Adicionar ${product.name} ao carrinho`}
-                      className={`inline-flex items-center justify-center gap-1.5 min-h-[40px] px-3.5 py-2 rounded-lg text-xs font-semibold text-white transition-all whitespace-nowrap shrink-0 ${
+                      className={`inline-flex items-center justify-center gap-1.5 min-h-[40px] px-4 py-2 rounded-lg text-xs font-semibold text-white whitespace-nowrap shrink-0 ${
                         isOutOfStock || isStockLimitReached
-                          ? 'bg-zinc-900 text-zinc-500 border border-zinc-800 cursor-not-allowed'
-                          : 'bg-red-600 hover:bg-red-500 active:scale-[0.99] cursor-pointer'
+                          ? 'bg-zinc-900 text-zinc-500 border border-zinc-800 cursor-not-allowed transition-colors'
+                          : 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 active:scale-[0.99] cursor-pointer'
                       }`}
                     >
                       <ShoppingBag className="w-3.5 h-3.5" aria-hidden="true" />
@@ -243,21 +243,21 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
         </div>
       </section>
 
-      {/* Floating Cart Visual Indicator (Bottom-Right) */}
-      <div className="fixed bottom-5 right-4 sm:right-6 z-40">
+      {/* Repositioned Compact Floating Cart Indicator (Safe Bottom-Right Margin) */}
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 pointer-events-none">
         <button
           type="button"
           onClick={() => setIsDrawerOpen(true)}
           aria-label={`Ver carrinho de produtos com ${totalItems} itens selecionados`}
-          className={`group flex items-center gap-3 min-h-[48px] px-4 py-2.5 rounded-2xl backdrop-blur-md bg-zinc-950/95 border transition-all shadow-2xl cursor-pointer ${
+          className={`pointer-events-auto group flex items-center gap-2.5 min-h-[44px] px-3.5 py-2 rounded-2xl backdrop-blur-md bg-zinc-950/95 border transition-all duration-300 cursor-pointer ${
             totalItems > 0
-              ? 'border-red-600/80 hover:border-red-500'
-              : 'border-zinc-800 hover:border-blue-500'
+              ? 'border-red-600/80 hover:border-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50'
+              : 'border-zinc-800 hover:border-blue-500 shadow-xl'
           }`}
         >
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-800">
+          <div className="relative flex items-center justify-center w-7 h-7 rounded-xl bg-zinc-900 border border-zinc-800">
             <ShoppingBag
-              className={`w-4 h-4 ${
+              className={`w-3.5 h-3.5 ${
                 totalItems > 0 ? 'text-red-500' : 'text-blue-500'
               }`}
               aria-hidden="true"
@@ -265,7 +265,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
           </div>
 
           <div className="text-left">
-            <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 leading-none">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 leading-none">
               Carrinho
             </p>
             <p className="text-xs font-bold text-white font-mono tabular-nums mt-0.5">
@@ -275,7 +275,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
 
           <span
             data-testid="floating-cart-count"
-            className={`inline-flex items-center justify-center min-w-[26px] h-6 px-2 rounded-lg text-xs font-mono font-bold tabular-nums ${
+            className={`inline-flex items-center justify-center min-w-[24px] h-5 px-1.5 rounded-lg text-xs font-mono font-bold tabular-nums ${
               totalItems > 0
                 ? 'bg-red-600 text-white'
                 : 'bg-zinc-900 text-zinc-300 border border-zinc-800'
@@ -474,10 +474,10 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                     e.preventDefault();
                   }
                 }}
-                className={`w-full inline-flex items-center justify-center gap-2 min-h-[48px] px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-white transition-colors whitespace-nowrap ${
+                className={`w-full inline-flex items-center justify-center gap-2 min-h-[48px] px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-white whitespace-nowrap ${
                   cartItems.length > 0
-                    ? 'bg-red-600 hover:bg-red-500 cursor-pointer'
-                    : 'bg-zinc-900 text-zinc-500 border border-zinc-800 cursor-not-allowed'
+                    ? 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 cursor-pointer'
+                    : 'bg-zinc-900 text-zinc-500 border border-zinc-800 cursor-not-allowed transition-colors'
                 }`}
               >
                 <MessageCircle className="w-4 h-4" aria-hidden="true" />

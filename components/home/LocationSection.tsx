@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Clock, MessageCircle } from 'lucide-react';
+import { Clock, MessageCircle, ArrowUpRight } from 'lucide-react';
 import {
   CAMPINA_GRANDE_SCHEDULE,
   MATHEUS_WHATSAPP_NUMBER,
@@ -22,34 +22,29 @@ export const LocationSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-          {/* Official Monte Santo Address & Direct Navigation Buttons */}
-          <div className="lg:col-span-7 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-5 sm:p-6 flex flex-col justify-between gap-5">
-            <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0">
-                <MapPin className="w-5 h-5 text-red-500" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="font-display text-lg font-bold text-white">
-                  Monte Santo · Campina Grande, PB
-                </h3>
-                <p className="text-xs sm:text-sm text-zinc-200 mt-1 font-medium">
-                  {OFFICIAL_ADDRESS}
-                </p>
-                <p className="text-xs text-zinc-400 mt-1">
-                  Ambiente 100% climatizado · Fácil estacionamento · Atendimento pontual
-                </p>
-              </div>
+          {/* Official Monte Santo Address & Direct Navigation Buttons (No Pin Icon) */}
+          <div className="lg:col-span-7 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-6 flex flex-col justify-between gap-5">
+            <div className="space-y-1.5">
+              <h3 className="font-display text-lg font-bold text-white">
+                Monte Santo · Campina Grande, PB
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-200 font-medium tracking-wide">
+                {OFFICIAL_ADDRESS}
+              </p>
+              <p className="text-xs font-light text-zinc-400 tracking-wide leading-relaxed">
+                Ambiente 100% climatizado · Fácil estacionamento · Atendimento pontual
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 border-t border-zinc-900">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-zinc-900">
               <a
                 href={OFFICIAL_GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 whitespace-nowrap"
               >
-                <MapPin className="w-4 h-4" aria-hidden="true" />
                 <span>Abrir no Google Maps</span>
+                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </a>
 
               <a
@@ -65,7 +60,7 @@ export const LocationSection: React.FC = () => {
           </div>
 
           {/* Official Real Operating Hours — Strictly Only Operating Hours */}
-          <div className="lg:col-span-5 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-5 sm:p-6 flex flex-col justify-center">
+          <div className="lg:col-span-5 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-6 flex flex-col justify-center">
             <div className="flex items-center gap-2 mb-4">
               <Clock className="w-4 h-4 text-blue-500" aria-hidden="true" />
               <h3 className="font-display text-base font-bold text-white">
@@ -79,7 +74,7 @@ export const LocationSection: React.FC = () => {
                   key={row.day}
                   className="py-2.5 flex items-center justify-between text-xs sm:text-sm"
                 >
-                  <span className="text-zinc-300 font-medium">{row.day}</span>
+                  <span className="text-zinc-300 font-medium tracking-wide">{row.day}</span>
                   <span
                     className={`font-mono tabular-nums ${
                       row.isOpen ? 'text-white font-semibold' : 'text-zinc-500'

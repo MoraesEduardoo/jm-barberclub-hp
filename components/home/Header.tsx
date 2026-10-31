@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
         <div className="flex items-center shrink-0">
           <a
             href={bookingHref}
-            className="inline-flex items-center justify-center gap-2 min-h-[40px] px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-red-600 hover:bg-red-500 transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center justify-center gap-2 min-h-[40px] px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 whitespace-nowrap shrink-0"
           >
             <Calendar className="w-4 h-4" aria-hidden="true" />
             <span>Agendar Horário</span>

@@ -49,15 +49,15 @@ export const TrustMetrics: React.FC<TrustMetricsProps> = ({
       className="py-6 bg-black border-b border-zinc-900"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {items.map((item) => {
             const IconComponent = item.icon;
             return (
               <div
                 key={item.id}
-                className="p-3.5 sm:p-4 rounded-xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 flex items-center gap-3"
+                className="p-5 sm:p-6 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 flex items-center gap-3.5"
               >
-                <div className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0">
                   <IconComponent className={`w-4 h-4 ${item.iconColor}`} aria-hidden="true" />
                 </div>
                 <div>
@@ -67,7 +67,9 @@ export const TrustMetrics: React.FC<TrustMetricsProps> = ({
                   >
                     {item.value}
                   </div>
-                  <p className="text-xs text-zinc-400">{item.label}</p>
+                  <p className="text-xs font-light text-zinc-400 tracking-wide mt-0.5">
+                    {item.label}
+                  </p>
                 </div>
               </div>
             );
