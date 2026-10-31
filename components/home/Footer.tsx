@@ -48,7 +48,7 @@ export const Footer: React.FC = () => {
             </a>
           </div>
 
-          <div className="font-mono text-zinc-500 tabular-nums text-center sm:text-right">
+          <div className="text-xs font-light font-mono text-zinc-400 tracking-wide tabular-nums text-center sm:text-right">
             © {new Date().getFullYear()} JM Barberclub.
           </div>
         </div>

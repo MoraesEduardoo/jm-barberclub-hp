@@ -61,7 +61,7 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
                     className="w-full h-44 object-cover object-center rounded-xl border border-zinc-900 mb-4"
                   />
 
-                  <div className="flex items-center justify-between text-xs text-zinc-400 font-mono mb-2 tabular-nums">
+                  <div className="flex items-center justify-between text-xs font-light text-zinc-400 tracking-wide font-mono mb-2 tabular-nums">
                     <span className="text-blue-400">{service.category}</span>
                     <span className="inline-flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5 text-blue-500" aria-hidden="true" />

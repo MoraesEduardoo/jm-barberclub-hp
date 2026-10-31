@@ -77,7 +77,9 @@ export const LocationSection: React.FC = () => {
                   <span className="text-zinc-300 font-medium tracking-wide">{row.day}</span>
                   <span
                     className={`font-mono tabular-nums ${
-                      row.isOpen ? 'text-white font-semibold' : 'text-zinc-500'
+                      row.isOpen
+                        ? 'text-white font-semibold'
+                        : 'text-xs font-light text-zinc-400 tracking-wide'
                     }`}
                   >
                     {row.hours}

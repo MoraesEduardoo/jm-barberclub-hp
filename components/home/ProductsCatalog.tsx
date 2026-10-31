@@ -186,7 +186,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                       )}
                     </div>
 
-                    <div className="flex items-center justify-between text-xs text-zinc-400 font-mono mb-2 tabular-nums">
+                    <div className="flex items-center justify-between text-xs font-light text-zinc-400 tracking-wide font-mono mb-2 tabular-nums">
                       <span className="text-blue-400">{product.category}</span>
                       <span className="inline-flex items-center gap-1">
                         <Package
@@ -222,7 +222,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                       aria-label={`Adicionar ${product.name} ao carrinho`}
                       className={`inline-flex items-center justify-center gap-1.5 min-h-[40px] px-4 py-2 rounded-lg text-xs font-semibold text-white whitespace-nowrap shrink-0 ${
                         isOutOfStock || isStockLimitReached
-                          ? 'bg-zinc-900 text-zinc-500 border border-zinc-800 cursor-not-allowed transition-colors'
+                          ? 'bg-zinc-900 text-zinc-400 border border-zinc-800 cursor-not-allowed transition-colors'
                           : 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 active:scale-[0.99] cursor-pointer'
                       }`}
                     >
@@ -243,16 +243,16 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
         </div>
       </section>
 
-      {/* Repositioned Compact Floating Cart Indicator (Safe Bottom-Right Margin) */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 pointer-events-none">
+      {/* Floating Cart Widget with exact requested structure */}
+      <div className="fixed bottom-6 right-4 z-50 shadow-2xl shadow-black/80 rounded-2xl">
         <button
           type="button"
           onClick={() => setIsDrawerOpen(true)}
           aria-label={`Ver carrinho de produtos com ${totalItems} itens selecionados`}
-          className={`pointer-events-auto group flex items-center gap-2.5 min-h-[44px] px-3.5 py-2 rounded-2xl backdrop-blur-md bg-zinc-950/95 border transition-all duration-300 cursor-pointer ${
+          className={`group flex items-center gap-2.5 min-h-[44px] px-3.5 py-2 rounded-2xl backdrop-blur-md bg-zinc-950/95 border transition-all duration-300 cursor-pointer ${
             totalItems > 0
               ? 'border-red-600/80 hover:border-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50'
-              : 'border-zinc-800 hover:border-blue-500 shadow-xl'
+              : 'border-zinc-800 hover:border-blue-500'
           }`}
         >
           <div className="relative flex items-center justify-center w-7 h-7 rounded-xl bg-zinc-900 border border-zinc-800">
@@ -265,7 +265,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
           </div>
 
           <div className="text-left">
-            <p className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 leading-none">
+            <p className="text-[10px] font-light font-mono uppercase tracking-wider text-zinc-400 leading-none">
               Carrinho
             </p>
             <p className="text-xs font-bold text-white font-mono tabular-nums mt-0.5">
@@ -289,7 +289,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
       {/* Lateral Cart Drawer / Modal */}
       {isDrawerOpen && (
         <div
-          className="fixed inset-0 z-50 flex justify-end"
+          className="fixed inset-0 z-[60] flex justify-end"
           role="dialog"
           aria-modal="true"
           aria-labelledby="cart-drawer-title"
