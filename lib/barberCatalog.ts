@@ -1,7 +1,7 @@
 import { supabase } from './supabase';
 
 export const OFFICIAL_LOGO_URL = '/logo-preta.png';
-export const CHATBOT_PWA_BASE_URL = 'https://chat.inbarberapp.com/jmbarberclub';
+export const CHATBOT_PWA_BASE_URL = 'https://chatbot-jmbarberclub.vercel.app/';
 
 export const OFFICIAL_ADDRESS =
   'R. Diogo da Costa, 252 - Monte Santo, Campina Grande - PB, 58400-733';
@@ -420,18 +420,11 @@ export async function fetchPublicBarbers(): Promise<ExecutiveBarber[]> {
  * Generates direct external URLs to the official JM Barberclub booking portal
  * passing the service ID or barber ID.
  */
-export function buildAgendarUrl(params?: {
+export function buildAgendarUrl(_params?: {
   service?: string;
   barber?: string;
 }): string {
-  const baseUrl = CHATBOT_PWA_BASE_URL;
-  if (!params) return baseUrl;
-
-  const searchParams = new URLSearchParams();
-  if (params.service) searchParams.set('service', params.service);
-  if (params.barber) searchParams.set('barber', params.barber);
-  const query = searchParams.toString();
-  return query ? `${baseUrl}?${query}` : baseUrl;
+  return CHATBOT_PWA_BASE_URL;
 }
 
 /**
