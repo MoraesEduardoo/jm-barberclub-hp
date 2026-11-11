@@ -35,13 +35,15 @@ export const Footer: React.FC = () => {
               Produtos
             </a>
             <a href="#equipe" className="hover:text-white transition-colors">
-              Especialistas
+              Equipa
             </a>
             <a href="#localizacao" className="hover:text-white transition-colors">
-              Localização
+              Horários
             </a>
             <a
               href={bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-red-500 font-semibold hover:text-red-400 transition-colors"
             >
               Agendar Online

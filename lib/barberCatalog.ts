@@ -257,6 +257,37 @@ function formatCategoryLabel(rawCategory: unknown, name: string): string {
   return 'Cabelo';
 }
 
+export type ServiceCategoryFilter = 'Todos' | 'Cortes' | 'Barba' | 'Combos';
+
+export const SERVICE_CATEGORY_FILTERS: ServiceCategoryFilter[] = [
+  'Todos',
+  'Cortes',
+  'Barba',
+  'Combos',
+];
+
+export function filterServicesByCategory(
+  services: PublicServiceRecord[],
+  categoryFilter: ServiceCategoryFilter
+): PublicServiceRecord[] {
+  if (!Array.isArray(services)) return [];
+  if (categoryFilter === 'Todos') return services;
+
+  return services.filter((service) => {
+    const cat = service.category.toLowerCase();
+    if (categoryFilter === 'Cortes') {
+      return cat === 'cabelo' || cat === 'cortes' || cat === 'corte';
+    }
+    if (categoryFilter === 'Barba') {
+      return cat === 'barba';
+    }
+    if (categoryFilter === 'Combos') {
+      return cat === 'combo' || cat === 'combos';
+    }
+    return true;
+  });
+}
+
 /**
  * Fetches the 100% dynamic service catalog directly from `public.services` in Supabase.
  */
@@ -306,9 +337,10 @@ export async function fetchPublicServices(): Promise<PublicServiceRecord[]> {
             price_formatted: formatted,
             category,
             image_url: imageUrl,
-            display_order: Number(row.display_order ?? idx),
+            display_order: Number(row.ordem ?? row.display_order ?? idx),
           };
-        });
+        })
+        .sort((a, b) => (a.display_order ?? 99) - (b.display_order ?? 99));
     }
   } catch {
     // Handled gracefully

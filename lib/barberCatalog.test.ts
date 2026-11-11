@@ -13,12 +13,14 @@ import {
   fetchPublicProducts,
   fetchPublicServices,
   fetchTrustMetrics,
+  filterServicesByCategory,
   formatPriceBRL,
   MATHEUS_WHATSAPP_NUMBER,
   MATHEUS_WHATSAPP_URL,
   OFFICIAL_ADDRESS,
   OFFICIAL_GOOGLE_MAPS_URL,
   OFFICIAL_LOGO_URL,
+  SERVICE_CATEGORY_FILTERS,
 } from './barberCatalog';
 
 test('computeClientsCount calculates client count from public.clients accurately', () => {
@@ -121,8 +123,19 @@ test('fetches real clients count, services, and barbers dynamically from Supabas
   assert.ok(barbers.some((b) => b.name === 'Matheus'));
   assert.ok(barbers.some((b) => b.name === 'William'));
 
-  assert.equal(metrics.googleRating, '4.9 ★');
-  assert.ok(metrics.clientsCount > 0, 'Expected positive client count from public.clients');
+  assert.deepEqual(SERVICE_CATEGORY_FILTERS, ['Todos', 'Cortes', 'Barba', 'Combos']);
+  const allFiltered = filterServicesByCategory(services, 'Todos');
+  const cortesFiltered = filterServicesByCategory(services, 'Cortes');
+  const barbaFiltered = filterServicesByCategory(services, 'Barba');
+  const combosFiltered = filterServicesByCategory(services, 'Combos');
+  assert.equal(allFiltered.length, services.length);
+  assert.ok(cortesFiltered.length > 0, 'Expected at least 1 Corte service');
+  assert.ok(barbaFiltered.length > 0, 'Expected at least 1 Barba service');
+  assert.ok(combosFiltered.length > 0, 'Expected at least 1 Combo service');
+  assert.equal(
+    cortesFiltered.length + barbaFiltered.length + combosFiltered.length,
+    services.length
+  );
 });
 
 

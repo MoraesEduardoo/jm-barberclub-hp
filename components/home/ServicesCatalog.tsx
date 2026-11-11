@@ -1,9 +1,14 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { Clock, ArrowUpRight } from 'lucide-react';
 import {
   buildAgendarUrl,
   createMinimalistBarberSvg,
+  filterServicesByCategory,
   PublicServiceRecord,
+  SERVICE_CATEGORY_FILTERS,
+  ServiceCategoryFilter,
 } from '../../lib/barberCatalog';
 
 interface ServicesCatalogProps {
@@ -11,6 +16,11 @@ interface ServicesCatalogProps {
 }
 
 export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) => {
+  const [selectedCategory, setSelectedCategory] =
+    useState<ServiceCategoryFilter>('Todos');
+
+  const filteredServices = filterServicesByCategory(services, selectedCategory);
+
   const handleImageFallback = (
     e: React.SyntheticEvent<HTMLImageElement>,
     service: PublicServiceRecord,
@@ -27,9 +37,12 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
   };
 
   return (
-    <section id="servicos" className="scroll-mt-16 py-12 sm:py-16 bg-black border-b border-zinc-900">
+    <section
+      id="servicos"
+      className="scroll-mt-28 md:scroll-mt-16 py-12 sm:py-16 bg-black border-b border-zinc-900"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-end justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-5">
           <div>
             <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
               01. Catálogo Oficial
@@ -38,14 +51,53 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
               Serviços & Preços
             </h2>
           </div>
-          <span className="text-xs font-light text-zinc-400 tracking-wide hidden sm:inline">
-            Toque para agendar no Chatbot Oficial
+          <span className="text-xs font-light text-zinc-400 tracking-wide">
+            Agendamento online em menos de 1 minuto
           </span>
+        </div>
+
+        {/* Filtros Rápidos por Categoria (Todos, Cortes, Barba, Combos) */}
+        <div
+          role="tablist"
+          aria-label="Filtrar serviços por categoria"
+          data-testid="service-category-filters"
+          className="flex items-center gap-2 overflow-x-auto pb-3 mb-5 -mx-4 px-4 sm:mx-0 sm:px-0"
+        >
+          {SERVICE_CATEGORY_FILTERS.map((category) => {
+            const isActive = selectedCategory === category;
+            const count = filterServicesByCategory(services, category).length;
+
+            return (
+              <button
+                key={category}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setSelectedCategory(category)}
+                className={`inline-flex items-center gap-2 min-h-[38px] px-4 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 whitespace-nowrap shrink-0 cursor-pointer ${
+                  isActive
+                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
+                    : 'bg-zinc-950 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-white'
+                }`}
+              >
+                <span>{category}</span>
+                <span
+                  className={`font-mono text-[11px] px-1.5 py-0.5 rounded tabular-nums ${
+                    isActive
+                      ? 'bg-black/30 text-white'
+                      : 'bg-zinc-900 text-zinc-400'
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Dynamic Services from public.services: Horizontal Carousel on Mobile, Responsive Grid on Desktop */}
         <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {services.map((service, idx) => {
+          {filteredServices.map((service, idx) => {
             const serviceHref = buildAgendarUrl({ service: service.id });
             return (
               <article
@@ -87,10 +139,12 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
 
                   <a
                     href={serviceHref}
-                    aria-label={`Agendar este serviço: ${service.name}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Reservar serviço: ${service.name}`}
                     className="inline-flex items-center justify-center gap-1 min-h-[40px] px-4 py-2 rounded-lg text-xs font-semibold text-white bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 whitespace-nowrap shrink-0"
                   >
-                    <span>Agendar este</span>
+                    <span>Reservar</span>
                     <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
                   </a>
                 </div>
