@@ -1,6 +1,7 @@
 import { supabase } from './supabase';
 
 export const OFFICIAL_LOGO_URL = '/logo-preta.png';
+export const HERO_WATERMARK_LOGO_URL = '/assets/aistudio/logo-512_462bd97c.png';
 export const CHATBOT_PWA_BASE_URL = 'https://chatbot-jmbarberclub.vercel.app/';
 
 export const OFFICIAL_ADDRESS =

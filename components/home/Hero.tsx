@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import {
   buildAgendarUrl,
+  HERO_WATERMARK_LOGO_URL,
   MATHEUS_WHATSAPP_URL,
-  OFFICIAL_LOGO_URL,
 } from '../../lib/barberCatalog';
 
 export const Hero: React.FC = () => {
@@ -39,35 +39,46 @@ export const Hero: React.FC = () => {
     };
   }, []);
 
-  // Subtle base opacity (0.26 at top -> 0 on scroll) so OLED black and H1 legibility remain flawless
-  const backdropOpacity = Math.max(0, Number((0.26 * (1 - scrollProgress)).toFixed(3)));
-  const backdropTranslateY = Math.round(scrollProgress * 28);
-  const backdropScale = Number((1 + scrollProgress * 0.05).toFixed(3));
+  // Balanced watermark opacity (0.16 at top — within the requested 0.12 to 0.18 range — fading to 0 on scroll)
+  const BASE_WATERMARK_OPACITY = 0.16;
+  const backdropOpacity = Math.max(
+    0,
+    Number((BASE_WATERMARK_OPACITY * (1 - scrollProgress)).toFixed(3))
+  );
+  const backdropTranslateY = Math.round(scrollProgress * 24);
+  const backdropScale = Number((1 + scrollProgress * 0.04).toFixed(3));
 
   return (
     <section
       id="conceito"
       className="relative pt-32 pb-14 sm:pt-36 sm:pb-20 bg-black border-b border-zinc-900 overflow-hidden [clip-path:inset(0)]"
     >
-      {/* Camada de Fundo Imersiva com o Emblema Oficial, Máscara de Degradê Vertical e Fade-out no Scroll */}
+      {/* Marca d'Água de Fundo com a Logo Branca Oficial (opacidade 0.16, sem fundo cinzento, com fade-out suave) */}
       <div
         data-testid="hero-bg-emblem"
         aria-hidden="true"
-        className="pointer-events-none fixed inset-x-0 top-14 h-[460px] sm:h-[540px] z-0 flex items-center justify-center overflow-hidden will-change-[opacity,transform]"
+        className="pointer-events-none fixed inset-x-0 top-12 h-[440px] sm:h-[520px] z-0 flex items-center justify-center overflow-hidden mix-blend-screen will-change-[opacity,transform]"
         style={{
           opacity: backdropOpacity,
           transform: `translate3d(0, ${backdropTranslateY}px, 0) scale(${backdropScale})`,
           WebkitMaskImage:
-            'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)',
+            'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 14%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.85) 78%, transparent 100%)',
           maskImage:
-            'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)',
+            'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 14%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.85) 78%, transparent 100%)',
         }}
       >
         <img
-          src={OFFICIAL_LOGO_URL}
+          src={HERO_WATERMARK_LOGO_URL}
           alt=""
           referrerPolicy="no-referrer"
-          className="w-[300px] h-[300px] sm:w-[420px] sm:h-[420px] lg:w-[500px] lg:h-[500px] object-contain select-none will-change-transform"
+          className="w-[320px] h-[320px] sm:w-[440px] sm:h-[440px] lg:w-[500px] lg:h-[500px] object-contain select-none will-change-transform"
+          style={{
+            filter: 'invert(1) hue-rotate(180deg) contrast(1.15)',
+            WebkitMaskImage:
+              'radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.6) 72%, rgba(0,0,0,0) 88%)',
+            maskImage:
+              'radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.6) 72%, rgba(0,0,0,0) 88%)',
+          }}
         />
       </div>
 
@@ -77,7 +88,7 @@ export const Hero: React.FC = () => {
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 50% 30%, rgba(220, 38, 38, 0.14), transparent 52%), radial-gradient(circle at 80% 35%, rgba(29, 78, 216, 0.12), transparent 55%), linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.72) 68%, #000000 100%)',
+            'radial-gradient(circle at 50% 30%, rgba(220, 38, 38, 0.12), transparent 55%), radial-gradient(circle at 80% 35%, rgba(29, 78, 216, 0.10), transparent 55%), linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 70%, #000000 100%)',
         }}
       />
 
