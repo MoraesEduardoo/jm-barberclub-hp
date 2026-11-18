@@ -20,6 +20,7 @@ import {
   OFFICIAL_ADDRESS,
   OFFICIAL_GOOGLE_MAPS_URL,
   OFFICIAL_LOGO_URL,
+  sanitizePublicProductDescription,
   SERVICE_CATEGORY_FILTERS,
 } from './barberCatalog';
 
@@ -50,6 +51,12 @@ test('formatPriceBRL formats prices accurately', () => {
 test('fetches active products from public.products in Supabase and formats WhatsApp cart order accurately', async () => {
   const products = await fetchPublicProducts();
   assert.ok(products.length > 0, 'Expected active products from public.products in Supabase');
+  assert.equal(sanitizePublicProductDescription('[CUSTO:18.00]'), null);
+  assert.equal(sanitizePublicProductDescription('[CONVENIENCIA] [CUSTO:4.50]'), null);
+  assert.equal(
+    sanitizePublicProductDescription('[CONVENIENCIA] [CUSTO:4.50] Puro Malte Cerveja'),
+    'Puro Malte Cerveja'
+  );
   assert.ok(
     products.every(
       (p) =>
@@ -57,9 +64,11 @@ test('fetches active products from public.products in Supabase and formats Whats
         p.name &&
         p.price > 0 &&
         p.stock_quantity >= 0 &&
-        p.image_url.startsWith('http')
+        p.image_url.startsWith('http') &&
+        !('cost_price' in p) &&
+        !(p.description || '').toLowerCase().includes('custo')
     ),
-    'All dynamic products must have id, name, price, stock_quantity, and Supabase Storage image_url'
+    'All dynamic products must have id, name, selling price, stock_quantity, and zero cost_price or [CUSTO] exposure'
   );
 
   const cartItems = [

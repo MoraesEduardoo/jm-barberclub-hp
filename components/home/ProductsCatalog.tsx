@@ -18,6 +18,7 @@ import {
   fetchPublicProducts,
   formatCurrencyBRL,
   ProductCartItem,
+  sanitizePublicProductDescription,
 } from '../../lib/barberCatalog';
 
 interface ProductsCatalogProps {
@@ -204,11 +205,16 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                       {product.name}
                     </h3>
 
-                    {product.description && (
-                      <p className="text-xs font-light text-zinc-400 tracking-wide line-clamp-2 mb-4 leading-relaxed">
-                        {product.description}
-                      </p>
-                    )}
+                    {(() => {
+                      const cleanDescription = sanitizePublicProductDescription(
+                        product.description
+                      );
+                      return cleanDescription ? (
+                        <p className="text-xs font-light text-zinc-400 tracking-wide line-clamp-2 mb-4 leading-relaxed">
+                          {cleanDescription}
+                        </p>
+                      ) : null;
+                    })()}
                   </div>
 
                   <div className="pt-4 mt-2 border-t border-zinc-900 flex items-center justify-between gap-2">

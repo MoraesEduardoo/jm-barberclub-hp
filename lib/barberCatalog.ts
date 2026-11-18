@@ -552,9 +552,37 @@ export function formatCurrencyBRL(amount: number): string {
   return `R$ ${amount.toFixed(2).replace('.', ',')}`;
 }
 
+/**
+ * Removes confidential internal cost price tags (e.g. "[CUSTO:18.00]", "Custo: R$ 10")
+ * and internal system markers (e.g. "[CONVENIENCIA]") from public product descriptions.
+ */
+export function sanitizePublicProductDescription(
+  rawDescription: unknown
+): string | null {
+  if (typeof rawDescription !== 'string') return null;
+
+  const cleaned = rawDescription
+    .replace(/\[\s*(?:PRE[CÇ]O[_\s-]*)?CUSTO\s*:[^\]]*\]/gi, '')
+    .replace(/\[\s*CONVENI[EÊ]NCIA\s*\]/gi, '')
+    .replace(/\[\s*BARBEARIA\s*\]/gi, '')
+    .replace(/(?:pre[cç]o\s+de\s+)?custo\s*:\s*(?:r\$\s*)?\d+(?:[.,]\d+)?/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return cleaned.length > 0 ? cleaned : null;
+}
+
 function formatProductCategory(rawCategory: unknown, name: string): string {
-  const cat = String(rawCategory || '').trim();
-  if (cat.length > 0) return cat;
+  const cat = String(rawCategory || '').trim().toLowerCase();
+  if (cat === 'conveniencia' || cat === 'conveniência') {
+    return 'Conveniência';
+  }
+  if (cat === 'barbearia') {
+    return 'Barbearia';
+  }
+  if (cat.length > 0) {
+    return cat.charAt(0).toUpperCase() + cat.slice(1);
+  }
   const lower = name.toLowerCase();
   if (lower.includes('óleo') || lower.includes('oleo') || lower.includes('barba')) {
     return 'Barba';
@@ -575,12 +603,15 @@ function formatProductCategory(rawCategory: unknown, name: string): string {
 /**
  * Fetches all active products (`is_active = true`) dynamically from `public.products`
  * in Supabase, ordered by `display_order` ascending.
+ * Strictly excludes internal `cost_price` and strips `[CUSTO:...]` metadata from descriptions.
  */
 export async function fetchPublicProducts(): Promise<BarberProduct[]> {
   try {
     const { data, error } = await supabase
       .from('products')
-      .select('*')
+      .select(
+        'id, name, description, price, stock_quantity, image_url, is_active, display_order, category, is_convenience'
+      )
       .eq('is_active', true)
       .order('display_order', { ascending: true });
 
@@ -593,11 +624,7 @@ export async function fetchPublicProducts(): Promise<BarberProduct[]> {
         .map((row: Record<string, unknown>, idx: number) => {
           const id = String(row.id);
           const name = String(row.name || '').trim();
-          const description =
-            typeof row.description === 'string' &&
-            row.description.trim().length > 0
-              ? row.description.trim()
-              : null;
+          const description = sanitizePublicProductDescription(row.description);
           const { price } = formatPriceBRL(
             row.price,
             row.price_in_cents ?? row.price_cents
