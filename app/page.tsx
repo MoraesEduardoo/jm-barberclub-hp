@@ -5,11 +5,10 @@ import TrustMetrics from '../components/home/TrustMetrics';
 import BookingStepsStrip from '../components/home/BookingStepsStrip';
 import ServicesCatalog from '../components/home/ServicesCatalog';
 import TeamSection from '../components/home/TeamSection';
-import SocialProofSection from '../components/home/SocialProofSection';
+import SocialProofSection from '../components/home/SocialProofSection.jsx';
 import LocationSection from '../components/home/LocationSection';
 import ProductsCatalog from '../components/home/ProductsCatalog';
 import Footer from '../components/home/Footer';
-import { OfflineIndicator } from '../components/home/PWAInstallButton';
 import {
   BarberProduct,
   DEFAULT_TRUST_METRICS,
@@ -21,6 +20,7 @@ import {
   PublicServiceRecord,
   PublicTrustMetrics,
 } from '../lib/barberCatalog';
+import { getGooglePlaceReviews } from '../lib/googleReviews.js';
 
 // Next.js App Router ISR revalidation (60 seconds)
 export const revalidate = 60;
@@ -30,11 +30,13 @@ export function HomePageView({
   services = [],
   products = [],
   barbers = [],
+  googleReviewsData = null,
 }: {
   metrics?: PublicTrustMetrics;
   services?: PublicServiceRecord[];
   products?: BarberProduct[];
   barbers?: ExecutiveBarber[];
+  googleReviewsData?: unknown;
 }) {
   return (
     <div className="min-h-screen pb-28 bg-black text-white selection:bg-red-600/30 selection:text-white">
@@ -45,23 +47,24 @@ export function HomePageView({
         <BookingStepsStrip />
         <ServicesCatalog services={services} />
         <TeamSection barbers={barbers} />
-        <SocialProofSection />
+        <SocialProofSection initialData={googleReviewsData} />
         <LocationSection />
         <ProductsCatalog products={products} />
       </main>
       <Footer />
-      <OfflineIndicator />
     </div>
   );
 }
 
 export default async function HomePage() {
-  const [metrics, services, products, barbers] = await Promise.all([
-    fetchTrustMetrics(),
-    fetchPublicServices(),
-    fetchPublicProducts(),
-    fetchPublicBarbers(),
-  ]);
+  const [metrics, services, products, barbers, googleReviewsData] =
+    await Promise.all([
+      fetchTrustMetrics(),
+      fetchPublicServices(),
+      fetchPublicProducts(),
+      fetchPublicBarbers(),
+      getGooglePlaceReviews(),
+    ]);
 
   return (
     <HomePageView
@@ -69,6 +72,7 @@ export default async function HomePage() {
       services={services}
       products={products}
       barbers={barbers}
+      googleReviewsData={googleReviewsData}
     />
   );
 }

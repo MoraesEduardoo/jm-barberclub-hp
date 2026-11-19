@@ -7,7 +7,6 @@ import {
   HERO_WATERMARK_LOGO_URL,
   MATHEUS_WHATSAPP_URL,
 } from '../../lib/barberCatalog';
-import { PWAInstallButton } from './PWAInstallButton';
 
 export const Hero: React.FC = () => {
   const bookingUrl = buildAgendarUrl();
@@ -122,7 +121,7 @@ export const Hero: React.FC = () => {
           Chegou no Monte Santo, sentou na cadeira — pontualidade absoluta e acabamento impecável.
         </p>
 
-        {/* CTAs de Conversão + Instalação PWA */}
+        {/* CTAs de Conversão */}
         <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
           <a
             href={bookingUrl}
@@ -134,28 +133,24 @@ export const Hero: React.FC = () => {
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </a>
 
-          <PWAInstallButton variant="hero" />
-        </div>
-
-        {/* Micro-copy Anti-Fricção + Canal Direto WhatsApp */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-[11px] font-mono text-zinc-400 tracking-wide">
-          <span>✓ Confirmação imediata em 30s</span>
-          <span className="hidden sm:inline text-zinc-700" aria-hidden="true">
-            ·
-          </span>
-          <span>✓ Pagamento só na barbearia</span>
-          <span className="hidden sm:inline text-zinc-700" aria-hidden="true">
-            ·
-          </span>
           <a
             href={MATHEUS_WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 transition-colors"
+            className="inline-flex items-center justify-center gap-2 min-h-[50px] px-5 py-3.5 rounded-xl text-sm font-semibold text-zinc-100 backdrop-blur-md bg-zinc-950/75 border border-zinc-800 hover:border-blue-500/70 transition-colors whitespace-nowrap"
           >
-            <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Dúvidas? WhatsApp</span>
+            <MessageCircle className="w-4 h-4 text-blue-500" aria-hidden="true" />
+            <span>Falar com a Barbearia</span>
           </a>
+        </div>
+
+        {/* Micro-copy Anti-Fricção */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[11px] font-mono text-zinc-400 tracking-wide">
+          <span>✓ Confirmação imediata em 30s</span>
+          <span className="text-zinc-700" aria-hidden="true">
+            ·
+          </span>
+          <span>✓ Pagamento só na barbearia</span>
         </div>
       </div>
     </section>
