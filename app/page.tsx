@@ -2,11 +2,14 @@ import React from 'react';
 import Header from '../components/home/Header';
 import Hero from '../components/home/Hero';
 import TrustMetrics from '../components/home/TrustMetrics';
+import BookingStepsStrip from '../components/home/BookingStepsStrip';
 import ServicesCatalog from '../components/home/ServicesCatalog';
-import ProductsCatalog from '../components/home/ProductsCatalog';
 import TeamSection from '../components/home/TeamSection';
+import SocialProofSection from '../components/home/SocialProofSection';
 import LocationSection from '../components/home/LocationSection';
+import ProductsCatalog from '../components/home/ProductsCatalog';
 import Footer from '../components/home/Footer';
+import { OfflineIndicator } from '../components/home/PWAInstallButton';
 import {
   BarberProduct,
   DEFAULT_TRUST_METRICS,
@@ -39,12 +42,15 @@ export function HomePageView({
       <main>
         <Hero />
         <TrustMetrics metrics={metrics} />
+        <BookingStepsStrip />
         <ServicesCatalog services={services} />
-        <ProductsCatalog products={products} />
         <TeamSection barbers={barbers} />
+        <SocialProofSection />
         <LocationSection />
+        <ProductsCatalog products={products} />
       </main>
       <Footer />
+      <OfflineIndicator />
     </div>
   );
 }

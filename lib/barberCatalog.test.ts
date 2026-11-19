@@ -13,13 +13,16 @@ import {
   fetchPublicProducts,
   fetchPublicServices,
   fetchTrustMetrics,
+  filterProductsByCategory,
   filterServicesByCategory,
   formatPriceBRL,
+  getBarbershopOpenStatus,
   MATHEUS_WHATSAPP_NUMBER,
   MATHEUS_WHATSAPP_URL,
   OFFICIAL_ADDRESS,
   OFFICIAL_GOOGLE_MAPS_URL,
   OFFICIAL_LOGO_URL,
+  PRODUCT_CATEGORY_FILTERS,
   sanitizePublicProductDescription,
   SERVICE_CATEGORY_FILTERS,
 } from './barberCatalog';
@@ -145,6 +148,26 @@ test('fetches real clients count, services, and barbers dynamically from Supabas
     cortesFiltered.length + barbaFiltered.length + combosFiltered.length,
     services.length
   );
+
+  assert.deepEqual(PRODUCT_CATEGORY_FILTERS, ['Barbearia', 'Conveniência', 'Todos']);
+  const openStatusTue = getBarbershopOpenStatus(new Date('2026-11-17T15:00:00-03:00'));
+  assert.equal(openStatusTue.isOpen, true);
+  assert.equal(openStatusTue.label, 'Aberto agora');
+
+  const closedStatusLate = getBarbershopOpenStatus(new Date('2026-11-17T21:00:00-03:00'));
+  assert.equal(closedStatusLate.isOpen, false);
+});
+
+test('filterProductsByCategory separates Barbearia grooming line from Conveniência', async () => {
+  const products = await fetchPublicProducts();
+  const barberProducts = filterProductsByCategory(products, 'Barbearia');
+  const convenienceProducts = filterProductsByCategory(products, 'Conveniência');
+  const allProducts = filterProductsByCategory(products, 'Todos');
+
+  assert.ok(barberProducts.length > 0, 'Expected Barbearia products');
+  assert.ok(convenienceProducts.length > 0, 'Expected Conveniência products');
+  assert.equal(allProducts.length, products.length);
+  assert.equal(barberProducts.length + convenienceProducts.length, products.length);
 });
 
 

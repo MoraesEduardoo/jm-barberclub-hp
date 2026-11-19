@@ -16,8 +16,11 @@ import {
   computeCartSummary,
   createMinimalistProductSvg,
   fetchPublicProducts,
+  filterProductsByCategory,
   formatCurrencyBRL,
+  PRODUCT_CATEGORY_FILTERS,
   ProductCartItem,
+  ProductCategoryFilter,
   sanitizePublicProductDescription,
 } from '../../lib/barberCatalog';
 
@@ -29,6 +32,8 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
   products = [],
 }) => {
   const [dynamicProducts, setDynamicProducts] = useState<BarberProduct[]>(products);
+  const [selectedFilter, setSelectedFilter] =
+    useState<ProductCategoryFilter>('Barbearia');
   const [cart, setCart] = useState<Record<string, ProductCartItem>>({});
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -48,8 +53,9 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
     };
   }, [products]);
 
-  const catalogList =
+  const allProducts =
     Array.isArray(products) && products.length > 0 ? products : dynamicProducts;
+  const catalogList = filterProductsByCategory(allProducts, selectedFilter);
 
   const cartItems: ProductCartItem[] = Object.values(cart).filter(
     (item) => item && item.quantity > 0
@@ -134,10 +140,10 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
         className="scroll-mt-28 md:scroll-mt-16 py-12 sm:py-16 bg-black border-b border-zinc-900"
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-end justify-between gap-4 mb-6">
+          <div className="flex items-end justify-between gap-4 mb-5">
             <div>
               <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
-                02. Linha Exclusiva
+                05. Linha Exclusiva & Conveniência
               </p>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
                 Catálogo de Produtos
@@ -156,6 +162,44 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                 {totalItems}
               </span>
             </button>
+          </div>
+
+          {/* Filtros de Produto: Barbearia | Conveniência | Todos */}
+          <div
+            role="tablist"
+            aria-label="Filtrar produtos por categoria"
+            data-testid="product-category-filters"
+            className="flex items-center gap-2 overflow-x-auto pb-3 mb-5 -mx-4 px-4 sm:mx-0 sm:px-0"
+          >
+            {PRODUCT_CATEGORY_FILTERS.map((filter) => {
+              const isActive = selectedFilter === filter;
+              const count = filterProductsByCategory(allProducts, filter).length;
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setSelectedFilter(filter)}
+                  className={`inline-flex items-center gap-2 min-h-[38px] px-4 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 whitespace-nowrap shrink-0 cursor-pointer ${
+                    isActive
+                      ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
+                      : 'bg-zinc-950 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-white'
+                  }`}
+                >
+                  <span>{filter}</span>
+                  <span
+                    className={`font-mono text-[11px] px-1.5 py-0.5 rounded tabular-nums ${
+                      isActive
+                        ? 'bg-black/30 text-white'
+                        : 'bg-zinc-900 text-zinc-400'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Dynamic Products from public.products: Horizontal Carousel on Mobile, Responsive Grid on Desktop */}

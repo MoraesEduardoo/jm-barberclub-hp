@@ -34,7 +34,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ barbers }) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="mb-6">
           <p className="text-xs font-mono text-blue-500 uppercase tracking-wider mb-1">
-            03. Equipa Executiva
+            02. Equipa Executiva
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
             Especialistas JM Barberclub
@@ -82,7 +82,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ barbers }) => {
                     className="w-full inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 whitespace-nowrap"
                   >
                     <Calendar className="w-4 h-4" aria-hidden="true" />
-                    <span>Agendar com {barber.name}</span>
+                    <span>Reservar cadeira com {barber.name}</span>
                   </a>
                 </div>
               </article>

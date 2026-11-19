@@ -52,7 +52,7 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
             </h2>
           </div>
           <span className="text-xs font-light text-zinc-400 tracking-wide">
-            Agendamento online em menos de 1 minuto
+            Escolha seu estilo e chegue no seu horário exato — sem perder a tarde esperando
           </span>
         </div>
 

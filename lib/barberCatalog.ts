@@ -52,6 +52,7 @@ export interface BarberProduct {
   id: string;
   name: string;
   category: string;
+  is_convenience: boolean;
   description: string | null;
   price: number;
   price_formatted: string;
@@ -652,10 +653,14 @@ export async function fetchPublicProducts(): Promise<BarberProduct[]> {
               )
           );
 
+          const isConvenience =
+            Boolean(row.is_convenience) || category === 'Conveniência';
+
           return {
             id,
             name,
             category,
+            is_convenience: isConvenience,
             description,
             price,
             price_formatted: priceFormatted,
@@ -725,5 +730,68 @@ export function buildProductOrderWhatsAppUrl(items: ProductCartItem[]): string {
 
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
+
+export type ProductCategoryFilter = 'Barbearia' | 'Conveniência' | 'Todos';
+
+export const PRODUCT_CATEGORY_FILTERS: ProductCategoryFilter[] = [
+  'Barbearia',
+  'Conveniência',
+  'Todos',
+];
+
+export function filterProductsByCategory(
+  products: BarberProduct[],
+  filter: ProductCategoryFilter
+): BarberProduct[] {
+  if (!Array.isArray(products)) return [];
+  if (filter === 'Todos') return products;
+  if (filter === 'Conveniência') {
+    return products.filter(
+      (p) => p.is_convenience || p.category.toLowerCase().includes('conveni')
+    );
+  }
+  return products.filter(
+    (p) => !p.is_convenience && !p.category.toLowerCase().includes('conveni')
+  );
+}
+
+export function getBarbershopOpenStatus(now: Date = new Date()): {
+  isOpen: boolean;
+  label: string;
+} {
+  try {
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Fortaleza',
+      weekday: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    const parts = formatter.formatToParts(now);
+    const weekday = parts.find((p) => p.type === 'weekday')?.value || '';
+    const hour = Number(parts.find((p) => p.type === 'hour')?.value ?? 0);
+    const minute = Number(parts.find((p) => p.type === 'minute')?.value ?? 0);
+    const totalMinutes = hour * 60 + minute;
+
+    if (['Tue', 'Wed', 'Thu', 'Fri', 'Sat'].includes(weekday)) {
+      if (totalMinutes >= 9 * 60 && totalMinutes < 19 * 60) {
+        return { isOpen: true, label: 'Aberto agora' };
+      }
+    } else if (weekday === 'Sun') {
+      if (totalMinutes >= 9 * 60 && totalMinutes < 12 * 60 + 30) {
+        return { isOpen: true, label: 'Aberto agora (Domingo)' };
+      }
+    } else if (weekday === 'Mon') {
+      if (totalMinutes >= 14 * 60 + 30 && totalMinutes < 19 * 60) {
+        return { isOpen: true, label: 'Aberto com William' };
+      }
+    }
+  } catch {
+    // Fallback gracefully
+  }
+
+  return { isOpen: false, label: 'Atendimento por agendamento' };
+}
+
 
 

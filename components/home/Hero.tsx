@@ -7,6 +7,7 @@ import {
   HERO_WATERMARK_LOGO_URL,
   MATHEUS_WHATSAPP_URL,
 } from '../../lib/barberCatalog';
+import { PWAInstallButton } from './PWAInstallButton';
 
 export const Hero: React.FC = () => {
   const bookingUrl = buildAgendarUrl();
@@ -92,45 +93,68 @@ export const Hero: React.FC = () => {
         }}
       />
 
-      {/* Conteúdo Principal de Alta Legibilidade em Primeiro Plano */}
+      {/* Conteúdo Principal de Alta Conversão (First 3 Seconds Hook) */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-5 sm:space-y-6">
-        <p className="text-xs font-light font-mono text-zinc-400 tracking-wide">
-          Campina Grande, PB <span className="text-blue-500">·</span>{' '}
-          <span className="text-red-500 font-semibold">Barbearia Premium</span>
+        <p className="inline-flex items-center justify-center gap-2 text-[11px] sm:text-xs font-mono text-zinc-300 tracking-wide whitespace-nowrap">
+          <span
+            className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shrink-0"
+            aria-hidden="true"
+          />
+          <span>Monte Santo · Campina Grande</span>
+          <span className="text-blue-500" aria-hidden="true">
+            ·
+          </span>
+          <span className="text-white font-semibold">4.9 ★ Google</span>
         </p>
 
         <h1
-          className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.08]"
+          className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.06]"
           style={{ textWrap: 'balance' }}
         >
-          O padrão que define o homem de{' '}
-          <span className="text-red-500">Campina Grande</span>
+          Corte e barba no mais alto padrão,{' '}
+          <span className="text-red-500">sem esperar na fila.</span>
         </h1>
 
-        <p className="text-xs sm:text-sm font-light text-zinc-400 tracking-wide max-w-xl mx-auto leading-relaxed">
-          Cortes executivos, degradê milimétrico e barboterapia na toalha quente com horário 100% pontual no bairro Monte Santo.
+        <p className="text-xs sm:text-sm font-light text-zinc-300 tracking-wide max-w-xl mx-auto leading-relaxed">
+          Reserve sua cadeira com{' '}
+          <strong className="text-white font-semibold">Matheus</strong> ou{' '}
+          <strong className="text-white font-semibold">William</strong> em menos de 30 segundos.
+          Chegou no Monte Santo, sentou na cadeira — pontualidade absoluta e acabamento impecável.
         </p>
 
-        {/* Thumb-Friendly Mobile CTAs */}
+        {/* CTAs de Conversão + Instalação PWA */}
         <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
           <a
             href={bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3.5 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 whitespace-nowrap"
+            className="inline-flex items-center justify-center gap-2 min-h-[50px] px-7 py-3.5 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/35 hover:shadow-red-600/55 transition-all duration-300 whitespace-nowrap"
           >
-            <span>Agendar Horário Agora</span>
+            <span>Garantir Meu Horário</span>
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </a>
 
+          <PWAInstallButton variant="hero" />
+        </div>
+
+        {/* Micro-copy Anti-Fricção + Canal Direto WhatsApp */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-[11px] font-mono text-zinc-400 tracking-wide">
+          <span>✓ Confirmação imediata em 30s</span>
+          <span className="hidden sm:inline text-zinc-700" aria-hidden="true">
+            ·
+          </span>
+          <span>✓ Pagamento só na barbearia</span>
+          <span className="hidden sm:inline text-zinc-700" aria-hidden="true">
+            ·
+          </span>
           <a
             href={MATHEUS_WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 py-3.5 rounded-xl text-sm font-semibold text-zinc-100 backdrop-blur-md bg-zinc-950/70 border border-zinc-800 hover:border-blue-500/60 transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 transition-colors"
           >
-            <MessageCircle className="w-4 h-4 text-blue-500" aria-hidden="true" />
-            <span>Falar com a Barbearia</span>
+            <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Dúvidas? WhatsApp</span>
           </a>
         </div>
       </div>

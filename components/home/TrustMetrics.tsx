@@ -23,14 +23,14 @@ export const TrustMetrics: React.FC<TrustMetricsProps> = ({
     {
       id: 'metric-google',
       value: metrics.googleRating,
-      label: 'Avaliação Google',
+      label: 'Nota no Monte Santo',
       icon: Star,
       iconColor: 'text-red-500',
     },
     {
       id: 'metric-punctual',
       value: metrics.punctualityDisplay,
-      label: 'Pontualidade',
+      label: 'Zero fila · Hora marcada',
       icon: Clock,
       iconColor: 'text-blue-500',
     },

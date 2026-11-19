@@ -1,10 +1,24 @@
 import React from 'react';
 import '../src/index.css';
 
+export const viewport = {
+  themeColor: '#000000',
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata = {
   title: 'JM Barberclub | Barbearia Premium em Campina Grande, PB',
   description:
-    'O padrão que define o homem de Campina Grande. Corte executivo, degradê de precisão, barboterapia com toalha quente e Combo JM com os especialistas Matheus e William.',
+    'Corte e barba no mais alto padrão sem esperar na fila. Agende em 30 segundos com Matheus ou William no bairro Monte Santo.',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent' as const,
+    title: 'JM Barber',
+  },
+  icons: {
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({

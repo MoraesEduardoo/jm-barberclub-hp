@@ -1,7 +1,10 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { Clock, MessageCircle, ArrowUpRight } from 'lucide-react';
 import {
   CAMPINA_GRANDE_SCHEDULE,
+  getBarbershopOpenStatus,
   MATHEUS_WHATSAPP_NUMBER,
   MATHEUS_WHATSAPP_URL,
   OFFICIAL_ADDRESS,
@@ -9,6 +12,15 @@ import {
 } from '../../lib/barberCatalog';
 
 export const LocationSection: React.FC = () => {
+  const [openStatus, setOpenStatus] = useState<{
+    isOpen: boolean;
+    label: string;
+  }>({ isOpen: false, label: 'Atendimento por agendamento' });
+
+  useEffect(() => {
+    setOpenStatus(getBarbershopOpenStatus());
+  }, []);
+
   return (
     <section
       id="localizacao"
@@ -35,7 +47,7 @@ export const LocationSection: React.FC = () => {
                 {OFFICIAL_ADDRESS}
               </p>
               <p className="text-xs font-light text-zinc-400 tracking-wide leading-relaxed">
-                Ambiente 100% climatizado · Fácil estacionamento · Atendimento pontual
+                Conforto absoluto no Monte Santo: ar-condicionado, estacionamento fácil na porta e pontualidade rigorosa do início ao fim.
               </p>
             </div>
 
@@ -63,13 +75,32 @@ export const LocationSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Official Real Operating Hours — Strictly Only Operating Hours */}
+          {/* Official Real Operating Hours with Real-Time Status Badge */}
           <div className="lg:col-span-5 rounded-2xl backdrop-blur-md bg-zinc-950/60 border border-zinc-900 p-6 flex flex-col justify-center">
-            <div className="flex items-center gap-2 mb-4">
-              <Clock className="w-4 h-4 text-blue-500" aria-hidden="true" />
-              <h3 className="font-display text-base font-bold text-white">
-                Horários de Funcionamento
-              </h3>
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-blue-500" aria-hidden="true" />
+                <h3 className="font-display text-base font-bold text-white">
+                  Horários de Funcionamento
+                </h3>
+              </div>
+
+              <span
+                data-testid="live-open-status"
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-mono border ${
+                  openStatus.isOpen
+                    ? 'bg-blue-600/15 border-blue-500/40 text-blue-300'
+                    : 'bg-zinc-900 border-zinc-800 text-zinc-400'
+                }`}
+              >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    openStatus.isOpen ? 'bg-blue-400 animate-pulse' : 'bg-red-500'
+                  }`}
+                  aria-hidden="true"
+                />
+                <span>{openStatus.label}</span>
+              </span>
             </div>
 
             <div className="divide-y divide-zinc-900 border-t border-b border-zinc-900">

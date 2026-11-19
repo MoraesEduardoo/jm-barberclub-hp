@@ -23,9 +23,9 @@ export const Header: React.FC = () => {
 
   const quickNavLinks = [
     { href: '#servicos', label: 'Serviços' },
-    { href: '#produtos', label: 'Produtos' },
     { href: '#equipe', label: 'Equipa' },
     { href: '#localizacao', label: 'Horários' },
+    { href: '#produtos', label: 'Produtos' },
   ];
 
   return (
@@ -35,7 +35,7 @@ export const Header: React.FC = () => {
       className="fixed top-0 inset-x-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-900 transition-colors duration-300 will-change-transform"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4 sm:gap-8">
-        {/* 1 & 2. Logótipo/Emblema Compacto + Nome da Barbearia ("JM Barberclub") */}
+        {/* 1 & 2. Logótipo/Emblema Compacto + Nome da Barbearia ("JM Barberclub") — Intactos */}
         <a
           href="#"
           className="flex items-center gap-2.5 text-white font-semibold tracking-tight whitespace-nowrap shrink-0"
